@@ -1,0 +1,83 @@
+---
+import '../styles/global.css';
+import Announce from '../components/Announce.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+
+export interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const {
+  title,
+  description = "The outrageous, hilarious, wildly replayable party card game. 150 unique questions. Play in minutes. Free shipping to US, UK & Canada.",
+  ogImage = "/images/og/default.png",
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Preload critical brand fonts -->
+    <link rel="preload" href="/fonts/dimbo-regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/glacial-regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/glacial-bold.woff2" as="font" type="font/woff2" crossorigin />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/logos/logo-nav.png" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site).href} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta name="theme-color" content="#0a0a0a" />
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+    <Announce />
+    <Nav />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      // Scroll reveal
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add('in');
+              io.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+      document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+      // Tap-to-flip on touch devices for any .flip-card
+      document.querySelectorAll('.flip-card').forEach((card) => {
+        card.addEventListener('click', () => card.classList.toggle('flipped'));
+        card.addEventListener('keydown', (e) => {
+          if ((e as KeyboardEvent).key === 'Enter' || (e as KeyboardEvent).key === ' ') {
+            e.preventDefault();
+            card.classList.toggle('flipped');
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,144 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTABand from '../components/CTABand.astro';
+
+const downloads = [
+  {
+    icon: '📄',
+    title: 'Game Rules (PDF)',
+    desc: 'The full rulebook. Print it, bookmark it, memorize it.',
+    href: '/downloads/black-sheep-rules.pdf',
+    cta: 'Download PDF',
+  },
+  {
+    icon: '📱',
+    title: 'Rules (Mobile)',
+    desc: 'Phone-friendly rules page — no download needed.',
+    href: '/how-to-play/',
+    cta: 'Open rules',
+  },
+  {
+    icon: '🎨',
+    title: 'Press kit',
+    desc: 'Logos, product photography, and brand assets for press.',
+    href: '/contact/',
+    cta: 'Request access',
+  },
+];
+---
+<BaseLayout
+  title="Downloads — Black Sheep Party Game"
+  description="Rules PDF, press kit, and other downloads for Black Sheep Party Game."
+>
+  <section class="page-hero">
+    <div class="section-inner">
+      <span class="eyebrow">Downloads</span>
+      <h1 class="page-title">Grab what<br/>you <span class="accent-pink">need</span>.</h1>
+      <p class="lede">
+        Lost your rules? Writing a review? Here's where to get the files.
+      </p>
+    </div>
+  </section>
+
+  <section class="downloads-section">
+    <div class="section-inner">
+      <div class="downloads-grid">
+        {downloads.map((d, i) => (
+          <a href={d.href} class={`download-card reveal reveal-${i + 1}`}>
+            <span class="dl-icon">{d.icon}</span>
+            <h3>{d.title}</h3>
+            <p>{d.desc}</p>
+            <span class="dl-cta">{d.cta} →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABand />
+</BaseLayout>
+
+<style>
+  .page-hero {
+    padding-top: 80px;
+    padding-bottom: 0;
+    position: relative;
+    z-index: 2;
+  }
+  .page-title {
+    font-family: var(--font-display);
+    font-size: clamp(56px, 8vw, 120px);
+    line-height: 0.92;
+    text-transform: uppercase;
+    letter-spacing: -1.5px;
+    margin-bottom: 24px;
+  }
+  .accent-pink { color: var(--bsp-pink); }
+  .lede {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 600px;
+  }
+
+  .downloads-section { background: var(--bsp-ink); position: relative; z-index: 2; }
+  .downloads-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .download-card {
+    background: var(--bsp-black);
+    padding: 40px 32px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: transform 0.3s, border-color 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .download-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--bsp-cyan);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .download-card:nth-child(even)::before { background: var(--bsp-pink); }
+  .download-card:hover { transform: translateY(-6px); border-color: rgba(255, 255, 255, 0.22); }
+  .download-card:hover::before { transform: scaleX(1); }
+  .dl-icon { font-size: 44px; line-height: 1; margin-bottom: 8px; }
+  .download-card h3 {
+    font-family: var(--font-display);
+    font-size: 30px;
+    line-height: 1.05;
+    letter-spacing: -0.3px;
+  }
+  .download-card p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 15px;
+    line-height: 1.55;
+    flex: 1;
+  }
+  .dl-cta {
+    color: var(--bsp-cyan);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 12px;
+  }
+  .download-card:hover .dl-cta { color: var(--bsp-pink); }
+
+  @media (max-width: 1100px) { .downloads-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 620px) { .downloads-grid { grid-template-columns: 1fr; } }
+</style>

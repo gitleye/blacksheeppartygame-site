@@ -1,0 +1,157 @@
+---
+const year = new Date().getFullYear();
+const socials = [
+  { label: 'IG', href: 'https://instagram.com/blacksheeppartygame/', name: 'Instagram' },
+  { label: 'TT', href: 'https://tiktok.com/@blacksheeppartygame_', name: 'TikTok' },
+  { label: 'FB', href: 'https://facebook.com/profile.php?id=61557441800367', name: 'Facebook' },
+  { label: 'YT', href: 'https://youtube.com/@blacksheeppartygame/shorts', name: 'YouTube' },
+];
+---
+<footer>
+  <div class="footer-big" aria-hidden="true">BLACK SHEEP</div>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="/images/logos/logo-small.webp" alt="Black Sheep" width="80" height="80" />
+      <p>The outrageous, hilarious, wildly replayable party card game. Made for friends who can take it.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Game</h5>
+      <ul>
+        <li><a href="/how-to-play/">How to Play</a></li>
+        <li><a href="/#cards">The Cards</a></li>
+        <li><a href="/downloads/">Downloads</a></li>
+        <li><a href="https://shop.blacksheeppartygame.com">Shop</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Help</h5>
+      <ul>
+        <li><a href="/faq/">FAQ</a></li>
+        <li><a href="/support/">Support</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Follow the flock</h5>
+      <div class="footer-socials">
+        {socials.map((s) => (
+          <a href={s.href} aria-label={s.name} target="_blank" rel="noopener noreferrer">{s.label}</a>
+        ))}
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div>© {year} Black Sheep Games. Built by the herd.</div>
+    <div>
+      <a href="https://shop.blacksheeppartygame.com/policies/privacy-policy">Privacy</a>
+      <a href="https://shop.blacksheeppartygame.com/policies/refund-policy">Refunds</a>
+      <a href="https://shop.blacksheeppartygame.com/policies/shipping-policy">Shipping</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer {
+    background: var(--bsp-black);
+    padding: 80px var(--content-padding) 36px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+    z-index: 2;
+  }
+  .footer-big {
+    font-family: var(--font-display);
+    font-size: clamp(80px, 18vw, 240px);
+    line-height: 0.85;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 60px;
+    color: transparent;
+    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.12);
+    letter-spacing: -8px;
+    pointer-events: none;
+  }
+  .footer-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1.2fr;
+    gap: 60px;
+    padding-bottom: 60px;
+  }
+  .footer-brand img { width: 80px; margin-bottom: 24px; border-radius: 14px; }
+  .footer-brand p {
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 340px;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .footer-col h5 {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--bsp-cyan);
+    margin-bottom: 22px;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 12px; }
+  .footer-col a {
+    color: rgba(255, 255, 255, 0.82);
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--bsp-pink); }
+  .footer-socials {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .footer-socials a {
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+  }
+  .footer-socials a:hover {
+    background: var(--bsp-cyan);
+    border-color: var(--bsp-cyan);
+    color: var(--bsp-black);
+    transform: translateY(-3px);
+  }
+  .footer-bottom {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.5);
+  }
+  .footer-bottom a {
+    color: rgba(255, 255, 255, 0.5);
+    margin-left: 20px;
+    text-decoration: none;
+  }
+  .footer-bottom a:hover { color: var(--bsp-cyan); }
+
+  @media (max-width: 1100px) { .footer-inner { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 620px)  {
+    .footer-inner { grid-template-columns: 1fr; gap: 40px; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+  }
+</style>

@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Marquee from '../components/Marquee.astro';
+import WhyPlay from '../components/WhyPlay.astro';
+import HowToPlay from '../components/HowToPlay.astro';
+import CardsShowcase from '../components/CardsShowcase.astro';
+import Testimonials from '../components/Testimonials.astro';
+import FAQ from '../components/FAQ.astro';
+import CTABand from '../components/CTABand.astro';
+---
+<BaseLayout title="Black Sheep Party Game — Get Everyone Talking">
+  <Hero />
+  <Marquee items={['Get Everyone Talking', 'Play Black Sheep', 'Win By Losing']} variant="cyan" />
+  <WhyPlay />
+  <HowToPlay />
+  <Marquee items={['150 Outrageous Questions', 'Unique Every Game', 'Made for Parties']} variant="pink" />
+  <CardsShowcase />
+  <Testimonials limit={6} />
+  <FAQ />
+  <CTABand />
+</BaseLayout>

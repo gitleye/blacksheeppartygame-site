@@ -1,0 +1,77 @@
+---
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  buttonText?: string;
+  buttonHref?: string;
+}
+const {
+  title = 'Get the game.',
+  subtitle = 'Get everyone talking.',
+  buttonText = 'Shop Black Sheep →',
+  buttonHref = 'https://shop.blacksheeppartygame.com',
+} = Astro.props;
+---
+<section class="cta-band" id="signup">
+  <h2>
+    <span class="white-b">{title}</span><br/>
+    <span class="black-b">{subtitle.split(' ').slice(0, -1).join(' ')}</span>{' '}
+    <span class="cyan-b">{subtitle.split(' ').pop()}</span>
+  </h2>
+  <p>Free shipping to the US, UK &amp; Canada. Shipped within 48 hours. One box, infinite bad decisions.</p>
+  <a href={buttonHref} class="btn">{buttonText}</a>
+</section>
+
+<style>
+  .cta-band {
+    background: var(--bsp-pink);
+    color: var(--bsp-white);
+    padding: 110px var(--content-padding);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-top: 2px solid var(--bsp-black);
+    border-bottom: 2px solid var(--bsp-black);
+    z-index: 2;
+  }
+  .cta-band::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent 0,
+      transparent 70px,
+      rgba(0, 0, 0, 0.05) 70px,
+      rgba(0, 0, 0, 0.05) 140px
+    );
+    pointer-events: none;
+  }
+  .cta-band h2 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(52px, 7.5vw, 108px);
+    line-height: 0.92;
+    text-transform: uppercase;
+    letter-spacing: -1.5px;
+    margin-bottom: 34px;
+    position: relative;
+  }
+  .cta-band h2 .white-b { color: var(--bsp-white); }
+  .cta-band h2 .cyan-b { color: var(--bsp-cyan); }
+  .cta-band h2 .black-b { color: var(--bsp-black); }
+  .cta-band p {
+    font-size: 20px;
+    max-width: 660px;
+    margin: 0 auto 42px;
+    opacity: 0.95;
+    position: relative;
+  }
+  .cta-band .btn {
+    background: var(--bsp-black);
+    color: var(--bsp-white);
+    box-shadow: 6px 6px 0 var(--bsp-cyan);
+    position: relative;
+  }
+  .cta-band .btn:hover { box-shadow: 8px 8px 0 var(--bsp-cyan); }
+</style>

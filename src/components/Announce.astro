@@ -1,0 +1,51 @@
+---
+// Scrolling pink banner at the top of every page
+const items = [
+  '🚚 Free shipping to US, UK & Canada',
+  '150 outrageous questions',
+  'Plays 3–10',
+  'Now shipping',
+];
+// We duplicate the items so the marquee can loop seamlessly
+const track = [...items, ...items];
+---
+<div class="announce" aria-label="Announcements">
+  <div class="announce-track">
+    {track.map((t) => <span>{t}</span>)}
+  </div>
+</div>
+
+<style>
+  .announce {
+    position: relative;
+    z-index: 20;
+    background: var(--bsp-pink);
+    color: var(--bsp-white);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    overflow: hidden;
+    white-space: nowrap;
+    border-bottom: 2px solid var(--bsp-black);
+  }
+  .announce-track {
+    display: inline-flex;
+    gap: 48px;
+    padding: 12px 0;
+    animation: marquee 35s linear infinite;
+    will-change: transform;
+  }
+  .announce-track span {
+    display: inline-flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .announce-track span::after {
+    content: '✦';
+    color: var(--bsp-cyan);
+    margin-left: 20px;
+    font-size: 12px;
+  }
+</style>

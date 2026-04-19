@@ -1,0 +1,19 @@
+{
+  "name": "blacksheeppartygame-site",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Marketing site for Black Sheep Party Game — Astro + Cloudflare Pages",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.0.0",
+    "@astrojs/check": "^0.9.4",
+    "typescript": "^5.6.3"
+  }
+}

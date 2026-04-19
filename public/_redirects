@@ -1,0 +1,15 @@
+# Redirect duplicated/legacy dev- paths from the old WordPress site
+/dev-howtoplay/*    /how-to-play/  301
+/dev-faq/*          /faq/          301
+/dev-contact/*      /contact/      301
+/dev-support/*      /support/      301
+/dev-suggestions/*  /contact/      301
+
+# Legacy WP paths that may still be indexed
+/join-the-flock/*   /#signup       301
+/reserve/*          /              301
+/suggestions/*      /contact/      301
+
+# Canonical shop redirect
+/shop                                  https://shop.blacksheeppartygame.com 302
+/shop/*                                https://shop.blacksheeppartygame.com/:splat 302

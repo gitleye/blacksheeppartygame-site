@@ -1,0 +1,159 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTABand from '../components/CTABand.astro';
+
+const topics = [
+  {
+    title: "Where's my order?",
+    body: "Standard shipping is 5–7 business days to the US, UK, and Canada. You'll get tracking info as soon as your package ships. If it's been longer than 10 business days, contact us with your order number.",
+    link: { href: '/contact/', text: 'Contact support' },
+  },
+  {
+    title: 'Returns &amp; refunds',
+    body: "Unopened games can be returned within 60 days for US and Canadian customers. Return shipping is the customer's responsibility. Refunds typically take 3–5 business days to appear on your card after we receive the return.",
+    link: { href: '/contact/', text: 'Start a return' },
+  },
+  {
+    title: 'Damaged or missing pieces',
+    body: "If your game arrived busted up or missing pieces, we'll make it right. Reach out with your order number and a photo of the issue.",
+    link: { href: '/contact/', text: 'Report an issue' },
+  },
+  {
+    title: 'Cancel an order',
+    body: "Orders can be cancelled within 24 hours of placing them via the confirmation email. After 24 hours your order has likely shipped — but contact us and we'll do our best to help.",
+    link: { href: '/contact/', text: 'Contact us' },
+  },
+  {
+    title: 'Lost rules / instructions',
+    body: "Spilled beer on your instructions? No problem. Grab a fresh PDF from our downloads page.",
+    link: { href: '/downloads/', text: 'Download rules' },
+  },
+  {
+    title: 'Age recommendation',
+    body: "We suggest players be 18+. Some cards get spicy — have a skim before playing with sensitive friends or family.",
+    link: null,
+  },
+];
+---
+<BaseLayout
+  title="Support — Black Sheep Party Game"
+  description="Order help, returns, damaged goods, and rules downloads for Black Sheep Party Game."
+>
+  <section class="page-hero">
+    <div class="section-inner">
+      <span class="eyebrow">Support</span>
+      <h1 class="page-title">We've got<br/>your <span class="accent-cyan">back</span>.</h1>
+      <p class="lede">
+        Most things you'll need are here. If you can't find it, <a href="/contact/">reach out</a> — real humans reply within 48 hours.
+      </p>
+    </div>
+  </section>
+
+  <section class="topics-section">
+    <div class="section-inner">
+      <div class="topics-grid">
+        {topics.map((t, i) => (
+          <div class={`topic reveal reveal-${(i % 3) + 1}`}>
+            <h3 set:html={t.title}></h3>
+            <p>{t.body}</p>
+            {t.link && <a href={t.link.href} class="topic-link">{t.link.text} →</a>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTABand
+    title="Still need help?"
+    subtitle="Just message us."
+    buttonText="Contact support →"
+    buttonHref="/contact/"
+  />
+</BaseLayout>
+
+<style>
+  .page-hero {
+    padding-top: 80px;
+    padding-bottom: 0;
+    position: relative;
+    z-index: 2;
+  }
+  .page-title {
+    font-family: var(--font-display);
+    font-size: clamp(56px, 8vw, 120px);
+    line-height: 0.92;
+    text-transform: uppercase;
+    letter-spacing: -1.5px;
+    margin-bottom: 24px;
+  }
+  .accent-cyan { color: var(--bsp-cyan); }
+  .lede {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 600px;
+  }
+  .lede a {
+    color: var(--bsp-cyan);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .topics-section { background: var(--bsp-ink); position: relative; z-index: 2; }
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .topic {
+    background: var(--bsp-black);
+    padding: 32px 28px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    transition: border-color 0.3s, transform 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .topic::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--bsp-cyan);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .topic:nth-child(even)::before { background: var(--bsp-pink); }
+  .topic:hover { border-color: rgba(255, 255, 255, 0.22); transform: translateY(-4px); }
+  .topic:hover::before { transform: scaleX(1); }
+
+  .topic h3 {
+    font-family: var(--font-display);
+    font-size: 26px;
+    line-height: 1.05;
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+  }
+  .topic p {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 18px;
+  }
+  .topic-link {
+    color: var(--bsp-cyan);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .topic-link:hover { color: var(--bsp-pink); }
+
+  @media (max-width: 1100px) { .topics-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 620px) { .topics-grid { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,25 @@
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# Fonts — immutable, cache forever
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *
+
+# Images — immutable if the filename has a hash; otherwise cache for a year
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Astro-built assets (CSS/JS with content hashes)
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML — short cache + revalidation
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/
+  Cache-Control: public, max-age=0, must-revalidate

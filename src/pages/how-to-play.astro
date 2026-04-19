@@ -1,0 +1,176 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTABand from '../components/CTABand.astro';
+---
+<BaseLayout title="How to Play — Black Sheep Party Game" description="Learn to play Black Sheep in under two minutes. Full rules, step by step.">
+  <section class="hero-compact">
+    <div class="section-inner">
+      <span class="eyebrow">Rules</span>
+      <h1 class="page-title">How to <span class="accent-cyan">Play</span>.</h1>
+      <p class="lede">
+        Learn Black Sheep in two minutes. Play for hours. The fewest points wins.
+      </p>
+    </div>
+  </section>
+
+  <section class="rules-section">
+    <div class="section-inner rules-grid">
+      <div class="rules-col reveal">
+        <h2 class="rule-heading">Getting Started</h2>
+        <ol class="rule-list">
+          <li>Lay out 15–25 question cards, image side up.</li>
+          <li>Put the point tokens in a bowl and the Nomination cards (A and B) in the standees.</li>
+          <li>Give each player an "A / YES" and "B / NO" card.</li>
+          <li>The player wearing the most black goes first.</li>
+          <li>Start by picking a card and reading it out loud.</li>
+        </ol>
+      </div>
+      <div class="rules-col reveal reveal-2">
+        <h2 class="rule-heading accent-pink-head">Yes / No Cards</h2>
+        <ol class="rule-list">
+          <li>Everyone places a "Yes" or "No" answer card face down.</li>
+          <li>Once everyone has chosen, flip the cards face up to reveal the answers.</li>
+          <li>Players who chose the more popular answer each get a point token.</li>
+        </ol>
+        <p class="rule-note">Eg. 5 "Yes" vs. 3 "No" — the "Yes" players get a point. In a tie, no one gets a point.</p>
+      </div>
+    </div>
+
+    <div class="section-inner rules-grid">
+      <div class="rules-col reveal">
+        <h2 class="rule-heading">Nominate Cards</h2>
+        <ol class="rule-list">
+          <li>When a player picks up a "Nominate" card, they assign any two players as "A" and "B".</li>
+          <li>Players vote for who they think best fits the nomination with their answer card face down.</li>
+          <li>Once everyone has voted, flip the answers up.</li>
+          <li>Players who voted with the majority get a point.</li>
+        </ol>
+        <p class="rule-note">In a tie, only the active player gets a point.</p>
+      </div>
+      <div class="rules-col reveal reveal-2 winning">
+        <h2 class="rule-heading accent-pink-head">Winning the Game</h2>
+        <p class="big-say">You win if you don't lose.</p>
+        <p class="rule-body">
+          The player with the fewest points when the tokens run out is the{' '}
+          <strong class="accent-pink">Black Sheep</strong> — the winner.
+        </p>
+      </div>
+    </div>
+
+    <div class="section-inner">
+      <div class="rules-col reveal">
+        <h2 class="rule-heading">A Few Notes</h2>
+        <ul class="rule-list">
+          <li>The active player picks a number for question cards with a blank value (__).</li>
+          <li>All players vote each round, including the player who picked up the card.</li>
+          <li>The active player can nominate themselves.</li>
+          <li>Questions can be read before or after nominees are chosen.</li>
+          <li>Picking unexpected or unlikely players for nominations can be fun.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <CTABand />
+</BaseLayout>
+
+<style>
+  .hero-compact {
+    padding-top: 80px;
+    padding-bottom: 40px;
+    position: relative;
+    z-index: 2;
+  }
+  .page-title {
+    font-family: var(--font-display);
+    font-size: clamp(56px, 8vw, 120px);
+    line-height: 0.92;
+    text-transform: uppercase;
+    letter-spacing: -1.5px;
+    margin-bottom: 24px;
+  }
+  .accent-cyan { color: var(--bsp-cyan); }
+  .accent-pink-head { color: var(--bsp-pink); }
+  .lede {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 600px;
+  }
+
+  .rules-section { background: var(--bsp-ink); position: relative; z-index: 2; }
+  .rules-section .section-inner { padding: 60px var(--content-padding); }
+  .rules-section .section-inner:last-of-type { padding-bottom: 120px; }
+
+  .rules-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+  }
+  .rules-col {
+    background: var(--bsp-black);
+    padding: 40px 36px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+  }
+  .rule-heading {
+    font-family: var(--font-display);
+    font-size: clamp(30px, 3.5vw, 44px);
+    line-height: 1;
+    margin-bottom: 24px;
+    color: var(--bsp-cyan);
+    letter-spacing: -0.5px;
+  }
+  .rule-list {
+    padding-left: 0;
+    list-style: none;
+    counter-reset: rule-counter;
+  }
+  ol.rule-list { counter-reset: rule-counter; }
+  ol.rule-list li {
+    counter-increment: rule-counter;
+    position: relative;
+    padding-left: 44px;
+    margin-bottom: 18px;
+    font-size: 17px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.85);
+  }
+  ol.rule-list li::before {
+    content: counter(rule-counter, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-family: var(--font-display);
+    font-size: 20px;
+    color: var(--bsp-pink);
+    width: 32px;
+  }
+  ul.rule-list { padding-left: 20px; }
+  ul.rule-list li {
+    font-size: 17px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+    color: rgba(255, 255, 255, 0.85);
+    padding-left: 8px;
+  }
+  ul.rule-list li::marker { color: var(--bsp-cyan); }
+  .rule-note {
+    margin-top: 20px;
+    padding: 14px 18px;
+    background: rgba(0, 180, 255, 0.06);
+    border-left: 3px solid var(--bsp-cyan);
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.75);
+  }
+  .rule-body { font-size: 17px; line-height: 1.6; color: rgba(255, 255, 255, 0.85); }
+  .winning .big-say {
+    font-family: var(--font-display);
+    font-size: clamp(40px, 5vw, 68px);
+    line-height: 0.95;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+    color: var(--bsp-white);
+  }
+
+  @media (max-width: 1100px) { .rules-grid { grid-template-columns: 1fr; } }
+</style>

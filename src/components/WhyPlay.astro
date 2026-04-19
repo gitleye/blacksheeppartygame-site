@@ -1,0 +1,94 @@
+---
+const items = [
+  {
+    num: '01',
+    title: 'Hilariously Indecent',
+    body: "Questions sharp enough to reveal something real, playful enough that no one leaves offended. Mostly.",
+  },
+  {
+    num: '02',
+    title: 'Learn it in 120 seconds',
+    body: "Built for parties, not puzzle nights. If someone's had three drinks, they can still play — and usually win.",
+  },
+  {
+    num: '03',
+    title: 'Different Every Night',
+    body: "New people, new answers, new chaos. Insane replay value — your fourth game still feels like the first.",
+  },
+];
+---
+<section class="why" id="why">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="eyebrow">Why Black Sheep</span>
+      <h2 class="section-title">Conversations<br/>you <span class="accent-pink">didn't know</span><br/>you needed.</h2>
+    </div>
+    <div class="why-grid">
+      {items.map((it, i) => (
+        <div class={`why-item reveal reveal-${i + 1}`}>
+          <span class="why-num">{it.num}</span>
+          <h3>{it.title}</h3>
+          <p>{it.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .why {
+    background: var(--bsp-ink);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.05);
+  }
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-top: 64px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .why-item {
+    padding: 48px 40px;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+    transition: background 0.3s;
+  }
+  .why-item:last-child { border-right: none; }
+  .why-item:hover { background: rgba(0, 180, 255, 0.04); }
+
+  .why-num {
+    font-family: var(--font-display);
+    font-size: 88px;
+    line-height: 1;
+    color: var(--bsp-pink);
+    margin-bottom: 24px;
+    display: block;
+  }
+  .why-item:nth-child(2) .why-num { color: var(--bsp-cyan); }
+  .why-item:nth-child(3) .why-num {
+    -webkit-text-stroke: 2px var(--bsp-pink);
+    color: transparent;
+  }
+  .why-item h3 {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 26px;
+    margin-bottom: 16px;
+    line-height: 1.15;
+    letter-spacing: -0.3px;
+  }
+  .why-item p {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  @media (max-width: 1100px) {
+    .why-grid { grid-template-columns: 1fr 1fr; }
+    .why-item { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+  }
+  @media (max-width: 620px) {
+    .why-grid { grid-template-columns: 1fr; }
+  }
+</style>
