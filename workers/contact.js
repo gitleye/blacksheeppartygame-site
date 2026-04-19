@@ -25,10 +25,11 @@ export default {
 
     const origin = request.headers.get('Origin') || '';
     const allowed = [
-      'https://blacksheeppartygame.com',
-      'https://www.blacksheeppartygame.com',
-      'https://blacksheeppartygame-site.leye-oyelami.workers.dev',
-    ];
+        'https://blacksheeppartygame.com',
+        'https://www.blacksheeppartygame.com',
+        'https://blacksheeppartygame-site.leye-oyelami.workers.dev',
+        'https://blacksheeppartygame-site.black-sheep-games-account.workers.dev',
+      ];
     if (!allowed.includes(origin)) {
       return new Response('Forbidden', { status: 403 });
     }
