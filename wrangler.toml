@@ -1,0 +1,14 @@
+name = "blacksheep-contact"
+main = "workers/contact.js"
+compatibility_date = "2024-01-01"
+
+[[routes]]
+pattern = "blacksheeppartygame.com/api/contact"
+zone_name = "blacksheeppartygame.com"
+
+# Secrets — set via CLI, never commit values here:
+#   npx wrangler secret put AWS_ACCESS_KEY_ID
+#   npx wrangler secret put AWS_SECRET_ACCESS_KEY
+#   npx wrangler secret put AWS_REGION
+#   npx wrangler secret put TO_EMAIL
+#   npx wrangler secret put FROM_EMAIL

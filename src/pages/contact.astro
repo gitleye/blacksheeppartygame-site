@@ -18,31 +18,16 @@ import CTABand from '../components/CTABand.astro';
 
   <section class="contact-section">
     <div class="section-inner contact-grid">
+      <!-- Left col: quick links + socials -->
       <div class="contact-col reveal">
         <h2 class="col-heading">Quick links</h2>
         <ul class="contact-list">
-          <li>
-            <span class="label">Order help</span>
-            <a href="/support/">Visit our support page</a>
-          </li>
-          <li>
-            <span class="label">Rules questions</span>
-            <a href="/how-to-play/">See how to play</a>
-          </li>
-          <li>
-            <span class="label">Card ideas</span>
-            <a href="#form">Use the form</a>
-          </li>
-          <li>
-            <span class="label">Wholesale</span>
-            <a href="#form">Use the form</a>
-          </li>
-          <li>
-            <span class="label">Press &amp; partnerships</span>
-            <a href="#form">Use the form</a>
-          </li>
+          <li><span class="label">Order help</span><a href="/support/">Support page</a></li>
+          <li><span class="label">Rules questions</span><a href="/how-to-play/">How to play</a></li>
+          <li><span class="label">Card ideas</span><a href="#form">Use the form</a></li>
+          <li><span class="label">Wholesale</span><a href="#form">Use the form</a></li>
+          <li><span class="label">Press &amp; partnerships</span><a href="#form">Use the form</a></li>
         </ul>
-
         <h2 class="col-heading" style="margin-top: 48px">Socials</h2>
         <div class="socials">
           <a href="https://instagram.com/blacksheeppartygame/" target="_blank" rel="noopener">Instagram</a>
@@ -52,16 +37,27 @@ import CTABand from '../components/CTABand.astro';
         </div>
       </div>
 
+      <!-- Right col: form -->
       <div class="contact-col reveal reveal-2" id="form">
         <h2 class="col-heading">Send us a message</h2>
-        <form class="contact-form" action="/api/contact" method="POST">
+
+        <!-- Success (shown after send) -->
+        <div id="form-success" class="form-success" hidden>
+          <span class="success-icon">&#10003;</span>
+          <div>
+            <strong>Message sent!</strong>
+            <p>We'll get back to you within 48 hours.</p>
+          </div>
+        </div>
+
+        <form class="contact-form" id="contactForm" novalidate>
           <label>
             <span>Your name</span>
-            <input type="text" name="name" required />
+            <input type="text" name="name" required autocomplete="name" />
           </label>
           <label>
             <span>Email</span>
-            <input type="email" name="email" required />
+            <input type="email" name="email" required autocomplete="email" />
           </label>
           <label>
             <span>What's this about?</span>
@@ -78,10 +74,16 @@ import CTABand from '../components/CTABand.astro';
             <span>Message</span>
             <textarea name="message" rows="5" required></textarea>
           </label>
-          <button type="submit" class="btn">Send message →</button>
-          <p class="form-note">
-            We reply within 48 hours. For urgent order issues, include your order number.
-          </p>
+
+          <!-- Honeypot: hidden label, bots fill in, silently discarded by Worker -->
+          <label style="display:none" aria-hidden="true">
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+          </label>
+
+          <div id="form-error" class="form-error" hidden></div>
+
+          <button type="submit" class="btn" id="submitBtn">Send message &rarr;</button>
+          <p class="form-note">We reply within 48 hours. For urgent order issues, include your order number.</p>
         </form>
       </div>
     </div>
@@ -90,13 +92,69 @@ import CTABand from '../components/CTABand.astro';
   <CTABand />
 </BaseLayout>
 
-<style>
-  .page-hero {
-    padding-top: 80px;
-    padding-bottom: 0;
-    position: relative;
-    z-index: 2;
+<script>
+  const form = document.getElementById('contactForm');
+  const btn = document.getElementById('submitBtn');
+  const errorBox = document.getElementById('form-error');
+  const successBox = document.getElementById('form-success');
+
+  if (form && btn && errorBox && successBox) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorBox.hidden = true;
+      errorBox.textContent = '';
+
+      const data = new FormData(form);
+      const name = data.get('name')?.toString().trim() ?? '';
+      const email = data.get('email')?.toString().trim() ?? '';
+      const message = data.get('message')?.toString().trim() ?? '';
+      const topic = data.get('topic')?.toString() ?? 'general';
+      const gotcha = data.get('_gotcha')?.toString() ?? '';
+
+      if (!name || !email || !message) {
+        showError('Please fill in all required fields.');
+        return;
+      }
+
+      btn.textContent = 'Sending\u2026';
+      btn.setAttribute('disabled', '');
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, topic, message, _gotcha: gotcha }),
+        });
+
+        const json = await res.json();
+
+        if (json.ok) {
+          form.hidden = true;
+          successBox.hidden = false;
+        } else {
+          showError(json.error ?? 'Something went wrong. Please try again.');
+          resetBtn();
+        }
+      } catch {
+        showError('Network error \u2014 please check your connection and try again.');
+        resetBtn();
+      }
+    });
   }
+
+  function showError(msg) {
+    errorBox.textContent = msg;
+    errorBox.hidden = false;
+  }
+
+  function resetBtn() {
+    btn.textContent = 'Send message \u2192';
+    btn.removeAttribute('disabled');
+  }
+</script>
+
+<style>
+  .page-hero { padding-top: 80px; padding-bottom: 0; position: relative; z-index: 2; }
   .page-title {
     font-family: var(--font-display);
     font-size: clamp(56px, 8vw, 120px);
@@ -106,15 +164,9 @@ import CTABand from '../components/CTABand.astro';
     margin-bottom: 24px;
   }
   .accent-cyan { color: var(--bsp-cyan); }
-  .lede {
-    font-size: 20px;
-    color: rgba(255, 255, 255, 0.75);
-    max-width: 600px;
-  }
+  .lede { font-size: 20px; color: rgba(255,255,255,0.75); max-width: 600px; }
 
   .contact-section { background: var(--bsp-ink); position: relative; z-index: 2; }
-  .contact-section .section-inner { padding: 80px var(--content-padding); }
-
   .contact-grid {
     display: grid;
     grid-template-columns: 1fr 1.2fr;
@@ -124,7 +176,7 @@ import CTABand from '../components/CTABand.astro';
   .contact-col {
     background: var(--bsp-black);
     padding: 40px 36px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255,255,255,0.08);
     border-radius: 4px;
   }
   .col-heading {
@@ -135,41 +187,30 @@ import CTABand from '../components/CTABand.astro';
     color: var(--bsp-cyan);
     letter-spacing: -0.5px;
   }
-  .contact-list {
-    list-style: none;
-    padding: 0;
-  }
+  .contact-list { list-style: none; padding: 0; }
   .contact-list li {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 14px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
     font-size: 15px;
   }
   .contact-list .label {
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255,255,255,0.7);
     font-family: var(--font-body);
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1.5px;
     font-size: 12px;
   }
-  .contact-list a {
-    color: var(--bsp-cyan);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
+  .contact-list a { color: var(--bsp-cyan); text-decoration: none; }
   .contact-list a:hover { color: var(--bsp-pink); }
 
-  .socials {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
+  .socials { display: flex; flex-wrap: wrap; gap: 10px; }
   .socials a {
     padding: 10px 16px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255,255,255,0.2);
     color: var(--bsp-white);
     text-decoration: none;
     font-family: var(--font-body);
@@ -179,12 +220,9 @@ import CTABand from '../components/CTABand.astro';
     text-transform: uppercase;
     transition: all 0.2s;
   }
-  .socials a:hover {
-    background: var(--bsp-cyan);
-    border-color: var(--bsp-cyan);
-    color: var(--bsp-black);
-  }
+  .socials a:hover { background: var(--bsp-cyan); border-color: var(--bsp-cyan); color: var(--bsp-black); }
 
+  /* Form */
   .contact-form { display: flex; flex-direction: column; gap: 18px; }
   .contact-form label { display: flex; flex-direction: column; gap: 8px; }
   .contact-form span {
@@ -193,13 +231,13 @@ import CTABand from '../components/CTABand.astro';
     font-size: 12px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(255,255,255,0.7);
   }
   .contact-form input,
   .contact-form select,
   .contact-form textarea {
     background: var(--bsp-ink);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255,255,255,0.12);
     color: var(--bsp-white);
     padding: 14px 16px;
     font-family: var(--font-body);
@@ -209,15 +247,40 @@ import CTABand from '../components/CTABand.astro';
   }
   .contact-form input:focus,
   .contact-form select:focus,
-  .contact-form textarea:focus {
-    outline: none;
-    border-color: var(--bsp-cyan);
-  }
+  .contact-form textarea:focus { outline: none; border-color: var(--bsp-cyan); }
+  .contact-form select option { background: var(--bsp-black); }
   .contact-form textarea { resize: vertical; min-height: 120px; }
   .contact-form button { align-self: flex-start; margin-top: 8px; }
-  .form-note { font-size: 13px; color: rgba(255, 255, 255, 0.5); margin-top: 4px; }
+  .contact-form button[disabled] { opacity: 0.6; cursor: not-allowed; transform: none !important; }
+  .form-note { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 4px; }
 
-  @media (max-width: 1100px) {
-    .contact-grid { grid-template-columns: 1fr; gap: 30px; }
+  .form-error {
+    background: rgba(255,31,142,0.1);
+    border: 1px solid var(--bsp-pink);
+    color: var(--bsp-pink);
+    padding: 14px 16px;
+    border-radius: 2px;
+    font-size: 14px;
+    font-weight: 700;
   }
+  .form-success {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    background: rgba(0,180,255,0.08);
+    border: 1px solid var(--bsp-cyan);
+    padding: 28px;
+    border-radius: 4px;
+  }
+  .success-icon { font-size: 36px; color: var(--bsp-cyan); line-height: 1; flex-shrink: 0; }
+  .form-success strong {
+    font-family: var(--font-display);
+    font-size: 30px;
+    display: block;
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+  }
+  .form-success p { color: rgba(255,255,255,0.7); font-size: 16px; margin: 0; }
+
+  @media (max-width: 1100px) { .contact-grid { grid-template-columns: 1fr; gap: 30px; } }
 </style>
