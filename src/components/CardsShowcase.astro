@@ -12,31 +12,32 @@ const cards = (await getCollection('cards')).sort(
       <span class="eyebrow">Inside the box</span>
       <h2 class="section-title">150 questions.<br/>Zero <span class="accent-pink">comfort zone</span>.</h2>
     </div>
-    <div class="cards-grid">
-      {cards.map((c, i) => (
-        <div class={`flip-card reveal reveal-${(i % 4) + 1}`} tabindex="0">
-          <div class="flip-inner">
-            <div class="flip-face flip-front">
-              <img
-                src={`/images/cards/front/${c.data.number}.webp`}
-                alt={`Card #${c.data.number}: ${c.data.question}`}
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-            <div class="flip-face flip-back">
-              <img
-                src={`/images/cards/back/${c.data.number}.webp`}
-                alt={`Card #${c.data.number} back`}
-                loading="lazy"
-                decoding="async"
-              />
+    <div class="cards-track-wrap">
+      <div class="cards-track">
+        {[...cards, ...cards].map((c, i) => (
+          <div class="flip-card" tabindex="0" aria-hidden={i >= cards.length ? "true" : "false"}>
+            <div class="flip-inner">
+              <div class="flip-face flip-front">
+                <img
+                  src={`/images/cards/front/${c.data.number}.webp`}
+                  alt={`Card #${c.data.number}: ${c.data.question}`}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div class="flip-face flip-back">
+                <img
+                  src={`/images/cards/back/${c.data.number}.webp`}
+                  alt={`Card #${c.data.number} back`}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
-    <div class="flip-hint">hover or tap to flip</div>
   </div>
 </section>
 
@@ -45,13 +46,28 @@ const cards = (await getCollection('cards')).sort(
     background: linear-gradient(180deg, var(--bsp-black) 0%, var(--bsp-deep) 100%);
     overflow: hidden;
   }
-  .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 18px;
+  .cards-track-wrap {
     margin-top: 64px;
+    overflow: hidden;
   }
+  .cards-track {
+    display: flex;
+    gap: 24px;
+    width: max-content;
+    animation: cards-slide 60s linear infinite;
+  }
+
+  .cards-track:has(.flip-card:hover),
+  .cards-track:has(.flip-card.flipped) { animation-play-state: paused; }
+
+  @keyframes cards-slide {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
   .flip-card {
+    flex-shrink: 0;
+    width: 260px;
     aspect-ratio: 2/3;
     perspective: 1000px;
     cursor: pointer;
@@ -84,17 +100,11 @@ const cards = (await getCollection('cards')).sort(
     display: block;
   }
 
-  .flip-hint {
-    margin-top: 40px;
-    font-family: var(--font-marker);
-    font-size: 20px;
-    color: var(--bsp-cyan);
-    text-align: center;
-    opacity: 0.7;
-  }
-  .flip-hint::before { content: '→ '; }
-  .flip-hint::after  { content: ' ←'; }
-
-  @media (max-width: 1100px) { .cards-grid { grid-template-columns: repeat(3, 1fr); } }
-  @media (max-width: 620px)  { .cards-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 620px) { .flip-card { width: 200px; } }
 </style>
+
+<script>
+  document.querySelectorAll('.flip-card').forEach((card) => {
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+  });
+</script>

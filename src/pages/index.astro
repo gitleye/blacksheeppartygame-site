@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import Marquee from '../components/Marquee.astro';
+import VideoSection from '../components/VideoSection.astro';
 import WhyPlay from '../components/WhyPlay.astro';
 import HowToPlay from '../components/HowToPlay.astro';
 import CardsShowcase from '../components/CardsShowcase.astro';
@@ -14,9 +15,9 @@ import CTABand from '../components/CTABand.astro';
   <Marquee items={['Get Everyone Talking', 'Play Black Sheep', 'Win By Losing']} variant="cyan" />
   <WhyPlay />
   <HowToPlay />
-  <Marquee items={['150 Outrageous Questions', 'Unique Every Game', 'Made for Parties']} variant="pink" />
+  <VideoSection />
   <CardsShowcase />
-  <Testimonials limit={6} />
+  <Testimonials limit={3} />
   <FAQ />
   <CTABand />
 </BaseLayout>

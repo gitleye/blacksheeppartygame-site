@@ -1,0 +1,39 @@
+---
+// Promo video — YouTube embed, autoplay muted, full viewport width
+---
+<section class="video-section">
+  <div class="video-wrap">
+    <iframe
+      src="https://www.youtube.com/embed/ox9uyaNCHLo?autoplay=1&mute=1&loop=1&playlist=ox9uyaNCHLo&rel=0&modestbranding=1"
+      title="Black Sheep Party Game — Promo"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
+  </div>
+</section>
+
+<style>
+  .video-section {
+    background: var(--bsp-black);
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    overflow: hidden;
+  }
+  .video-wrap {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+  }
+  .video-wrap iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+</style>

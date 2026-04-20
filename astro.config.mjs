@@ -2,8 +2,6 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-import cloudflare from "@astrojs/cloudflare";
-
 // https://astro.build/config
 export default defineConfig({
   site: 'https://blacksheeppartygame.com',
@@ -11,7 +9,6 @@ export default defineConfig({
 
   integrations: [
     sitemap({
-      // Exclude any pages you don't want indexed
       filter: (page) => !page.includes('/api/'),
     }),
   ],
@@ -25,6 +22,4 @@ export default defineConfig({
   image: {
     service: { entrypoint: 'astro/assets/services/sharp' },
   },
-
-  adapter: cloudflare()
 });

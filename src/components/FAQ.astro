@@ -13,7 +13,7 @@ const faqs = (await getCollection('faqs')).sort((a, b) => a.data.order - b.data.
       {faqs.map(async (f, i) => {
         const { Content } = await f.render();
         return (
-          <details class="faq-item reveal" open={i === 0}>
+          <details class="faq-item reveal">
             <summary>
               <span>{f.data.question}</span>
               <span class="icon" aria-hidden="true">+</span>
@@ -75,7 +75,7 @@ const faqs = (await getCollection('faqs')).sort((a, b) => a.data.order - b.data.
   .faq-answer {
     margin-top: 18px;
     color: rgba(255, 255, 255, 0.72);
-    font-size: 17px;
+    font-size: 19px;
     line-height: 1.65;
     max-width: 820px;
   }

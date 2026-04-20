@@ -67,17 +67,18 @@ blacksheeppartygame-site/
     ├── layouts/
     │   └── BaseLayout.astro  # Shared meta, fonts, nav, footer
     ├── components/           # Reusable section components
-    │   ├── Announce.astro    # Top marquee bar
-    │   ├── Nav.astro         # Sticky nav + mobile menu
-    │   ├── Hero.astro        # Home hero with card stack
-    │   ├── Marquee.astro     # Reusable scrolling strip
-    │   ├── WhyPlay.astro     # 3-up feature band
-    │   ├── HowToPlay.astro   # 4-step how-to
-    │   ├── CardsShowcase.astro  # Flip-card grid (reads from content/cards/)
-    │   ├── Testimonials.astro   # Reviews grid (reads from content/testimonials/)
-    │   ├── FAQ.astro         # Accordion (reads from content/faqs/)
-    │   ├── CTABand.astro     # Reusable pink CTA section
-    │   └── Footer.astro      # Global footer with socials
+│   ├── Announce.astro    # Top marquee bar
+│   ├── Nav.astro         # Sticky nav + mobile menu
+│   ├── Hero.astro        # Home hero with real card image stack
+│   ├── Marquee.astro     # Reusable scrolling strip
+│   ├── WhyPlay.astro     # 3-up feature band
+│   ├── HowToPlay.astro   # 4-step how-to
+│   ├── VideoSection.astro   # Full-width YouTube promo embed
+│   ├── CardsShowcase.astro  # Auto-scrolling carousel (reads from content/cards/)
+│   ├── Testimonials.astro   # Reviews grid (reads from content/testimonials/)
+│   ├── FAQ.astro         # Accordion (reads from content/faqs/)
+│   ├── CTABand.astro     # Reusable pink CTA section
+│   └── Footer.astro      # Global footer with socials
     └── pages/                # File-based routing
         ├── index.astro       # /
         ├── how-to-play.astro # /how-to-play/
@@ -140,19 +141,28 @@ Set `featured: true` to push it to the top of the home page testimonials.
 ### To add/change a demo card on the home page
 
 See [`public/images/cards/README.md`](./public/images/cards/README.md) for the
-full guide. Short version: drop a JSON file in `src/content/cards/`:
+full guide. The showcase reads from both `src/content/cards/` (JSON) and
+`public/images/cards/front|back/` (`.webp` images). Both must exist with
+matching numbers for a card to appear.
+
+Short version — drop a JSON file in `src/content/cards/`:
 
 ```json
 {
   "number": "142",
   "type": "yes-no",
   "question": "Have you ever been caught snooping on someone's phone?",
-  "palette": "pink",
+  "palette": "cyan",
   "order": 7
 }
 ```
 
-Available palettes: `cyan`, `pink`, `white`, `cream`, `black`.
+And place matching images at:
+- `public/images/cards/front/142.webp`
+- `public/images/cards/back/142.webp`
+
+The showcase is an **auto-scrolling carousel** — cards loop infinitely.
+Hover to pause. Click/tap a card to flip it and see the back.
 
 ---
 
