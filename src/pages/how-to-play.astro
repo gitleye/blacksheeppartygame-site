@@ -14,70 +14,117 @@ import CTABand from '../components/CTABand.astro';
   </section>
 
   <section class="rules-section">
-    <div class="section-inner rules-grid">
-      <div class="rules-col reveal">
-        <h2 class="rule-heading">Getting Started</h2>
-        <ol class="rule-list">
-          <li>Lay out 15–25 question cards, image side up.</li>
-          <li>Put the point tokens in a bowl and the Nomination cards (A and B) in the standees.</li>
-          <li>Give each player an "A / YES" and "B / NO" card.</li>
-          <li>The player wearing the most black goes first.</li>
-          <li>Start by picking a card and reading it out loud.</li>
-        </ol>
-      </div>
-      <div class="rules-col reveal reveal-2">
-        <h2 class="rule-heading accent-pink-head">Yes / No Cards</h2>
-        <ol class="rule-list">
-          <li>Everyone places a "Yes" or "No" answer card face down.</li>
-          <li>Once everyone has chosen, flip the cards face up to reveal the answers.</li>
-          <li>Players who chose the more popular answer each get a point token.</li>
-        </ol>
-        <p class="rule-note">Eg. 5 "Yes" vs. 3 "No" — the "Yes" players get a point. In a tie, no one gets a point.</p>
+
+    <!-- Getting Started -->
+    <div class="rule-band">
+      <div class="section-inner rule-row reveal">
+        <div class="rule-img-col img-glow-cyan">
+          <div class="card-fan">
+            <img class="fan-card fan-1" src="/images/cards/front/051.webp" alt="Question card" />
+            <img class="fan-card fan-2" src="/images/cards/front/028.webp" alt="Question card" />
+            <img class="fan-card fan-3" src="/images/cards/front/102.webp" alt="Question card" />
+            <img class="fan-card fan-4" src="/images/cards/front/032.webp" alt="Question card" />
+          </div>
+        </div>
+        <div class="rules-col border-cyan">
+          <span class="step-label">Step 01</span>
+          <h2 class="rule-heading">Getting Started</h2>
+          <ol class="rule-list">
+            <li>Lay out 15–25 question cards, image side up.</li>
+            <li>Put the point tokens in a bowl and the Nomination cards (A and B) in the standees.</li>
+            <li>Give each player an "A / YES" and "B / NO" card.</li>
+            <li>The player wearing the most black goes first.</li>
+            <li>Start by picking a card and reading it out loud.</li>
+          </ol>
+        </div>
       </div>
     </div>
 
-    <div class="section-inner rules-grid">
-      <div class="rules-col reveal">
-        <h2 class="rule-heading">Nominate Cards</h2>
-        <ol class="rule-list">
-          <li>When a player picks up a "Nominate" card, they assign any two players as "A" and "B".</li>
-          <li>Players vote for who they think best fits the nomination with their answer card face down.</li>
-          <li>Once everyone has voted, flip the answers up.</li>
-          <li>Players who voted with the majority get a point.</li>
-        </ol>
-        <p class="rule-note">In a tie, only the active player gets a point.</p>
-      </div>
-      <div class="rules-col reveal reveal-2 winning">
-        <h2 class="rule-heading accent-pink-head">Winning the Game</h2>
-        <p class="big-say">You win if you don't lose.</p>
-        <p class="rule-body">
-          The player with the fewest points when the tokens run out is the{' '}
-          <strong class="accent-pink">Black Sheep</strong> — the winner.
-        </p>
+    <!-- Yes / No Cards -->
+    <div class="rule-band rule-band-alt">
+      <div class="section-inner rule-row rule-row-reverse reveal">
+        <div class="rule-img-col img-glow-pink">
+          <div class="answer-cards">
+            <div class="answer-wrap">
+              <img src="/images/cards/answer/a-yes.png" alt="A / Yes answer card" class="answer-card ac-yes" />
+            </div>
+            <div class="answer-wrap">
+              <img src="/images/cards/answer/b-no.png" alt="B / No answer card" class="answer-card ac-no" />
+            </div>
+          </div>
+        </div>
+        <div class="rules-col border-pink">
+          <span class="step-label">Step 02</span>
+          <h2 class="rule-heading accent-pink-head">Yes / No Cards</h2>
+          <ol class="rule-list">
+            <li>Everyone places a "Yes" or "No" answer card face down.</li>
+            <li>Once everyone has chosen, flip the cards face up to reveal the answers.</li>
+            <li>Players who chose the more popular answer each get a point token.</li>
+          </ol>
+          <p class="rule-note">Eg. 5 "Yes" vs. 3 "No" — the "Yes" players get a point. In a tie, no one gets a point.</p>
+        </div>
       </div>
     </div>
 
-    <div class="section-inner">
-      <div class="rules-col reveal">
-        <h2 class="rule-heading">A Few Notes</h2>
-        <ul class="rule-list">
-          <li>The active player picks a number for question cards with a blank value (__).</li>
-          <li>All players vote each round, including the player who picked up the card.</li>
-          <li>The active player can nominate themselves.</li>
-          <li>Questions can be read before or after nominees are chosen.</li>
-          <li>Picking unexpected or unlikely players for nominations can be fun.</li>
-        </ul>
+    <!-- Nominate Cards -->
+    <div class="rule-band">
+      <div class="section-inner rule-row reveal">
+        <div class="rule-img-col img-glow-cyan">
+          <div class="nom-standees">
+            <img src="/images/cards/nominate/nominate-a.png" alt="Nominate A standee" class="nominate-card" />
+            <img src="/images/cards/nominate/nominate-b.png" alt="Nominate B standee" class="nominate-card" />
+          </div>
+        </div>
+        <div class="rules-col border-cyan">
+          <span class="step-label">Step 03</span>
+          <h2 class="rule-heading">Nominate Cards</h2>
+          <ol class="rule-list">
+            <li>When a player picks up a "Nominate" card, they assign any two players as "A" and "B".</li>
+            <li>Players vote for who they think best fits the nomination with their answer card face down.</li>
+            <li>Once everyone has voted, flip the answers up.</li>
+            <li>Players who voted with the majority get a point.</li>
+          </ol>
+          <p class="rule-note">In a tie, only the active player gets a point.</p>
+        </div>
       </div>
     </div>
+
+    <!-- Winning + Notes -->
+    <div class="rule-band rule-band-win">
+      <div class="section-inner rules-grid reveal">
+        <div class="rules-col border-pink winning">
+          <span class="step-label">The Goal</span>
+          <h2 class="rule-heading accent-pink-head">Winning the Game</h2>
+          <p class="big-say">You win if you&nbsp;don't&nbsp;lose.</p>
+          <p class="rule-body">
+            The player with the fewest points when the tokens run out is the{' '}
+            <strong class="accent-pink">Black Sheep</strong> — and the winner.
+          </p>
+        </div>
+        <div class="rules-col border-cyan">
+          <span class="step-label">Good to Know</span>
+          <h2 class="rule-heading">A Few Notes</h2>
+          <ul class="rule-list">
+            <li>The active player picks a number for question cards with a blank value (__).</li>
+            <li>All players vote each round, including the player who picked up the card.</li>
+            <li>The active player can nominate themselves.</li>
+            <li>Questions can be read before or after nominees are chosen.</li>
+            <li>Picking unexpected or unlikely players can be fun.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
   </section>
 
   <CTABand />
 </BaseLayout>
 
 <style>
+  /* ── Hero ── */
   .hero-compact {
     padding-top: 56px;
-    padding-bottom: 32px;
+    padding-bottom: 40px;
     position: relative;
     z-index: 2;
   }
@@ -90,87 +137,236 @@ import CTABand from '../components/CTABand.astro';
     margin-bottom: 24px;
   }
   .accent-cyan { color: var(--bsp-cyan); }
+  .accent-pink { color: var(--bsp-pink); }
   .accent-pink-head { color: var(--bsp-pink); }
-  .lede {
-    font-size: 22px;
-    color: rgba(255, 255, 255, 0.75);
-    max-width: 600px;
+  .lede { font-size: 22px; color: rgba(255,255,255,0.75); max-width: 600px; }
+
+  /* ── Section bands ── */
+  .rules-section { position: relative; z-index: 2; overflow: hidden; }
+  .rule-band { background: var(--bsp-ink); overflow: hidden; }
+  .rule-band-alt { background: #0d0d0d; }
+  .rule-band-win { background: var(--bsp-black); }
+  .rule-band .section-inner { padding: 48px var(--content-padding); }
+  .rule-band:last-of-type .section-inner { padding-bottom: 72px; }
+
+  /* ── Row layout ── */
+  .rule-row {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 32px;
+    align-items: center;
   }
+  .rule-row-reverse .rule-img-col { order: 2; }
+  .rule-row-reverse .rules-col    { order: 1; }
 
-  .rules-section { background: var(--bsp-ink); position: relative; z-index: 2; }
-  .rules-section .section-inner { padding: 44px var(--content-padding); }
-  .rules-section .section-inner:last-of-type { padding-bottom: 72px; }
-
+  /* Two-col grid (no image) */
   .rules-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    gap: 48px;
   }
+
+  /* ── Rule card ── */
   .rules-col {
-    background: var(--bsp-black);
+    background: rgba(255,255,255,0.03);
     padding: 40px 36px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.07);
+    border-top: 3px solid transparent;
+    border-radius: 6px;
+    position: relative;
+  }
+  .border-cyan { border-top-color: var(--bsp-cyan); }
+  .border-pink { border-top-color: var(--bsp-pink); }
+
+  .step-label {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 10px;
   }
   .rule-heading {
     font-family: var(--font-display);
-    font-size: clamp(30px, 3.5vw, 44px);
+    font-size: clamp(28px, 3.2vw, 42px);
     line-height: 1;
     margin-bottom: 24px;
     color: var(--bsp-cyan);
     letter-spacing: -0.5px;
   }
-  .rule-list {
+  ol.rule-list {
     padding-left: 0;
     list-style: none;
     counter-reset: rule-counter;
   }
-  ol.rule-list { counter-reset: rule-counter; }
   ol.rule-list li {
     counter-increment: rule-counter;
     position: relative;
-    padding-left: 44px;
+    padding-left: 48px;
     margin-bottom: 18px;
-    font-size: 19px;
-    line-height: 1.5;
-    color: rgba(255, 255, 255, 0.85);
+    font-size: 21px;
+    line-height: 1.55;
+    color: rgba(255,255,255,0.82);
   }
   ol.rule-list li::before {
     content: counter(rule-counter, decimal-leading-zero);
     position: absolute;
-    left: 0;
-    top: 0;
+    left: 0; top: 1px;
     font-family: var(--font-display);
     font-size: 20px;
     color: var(--bsp-pink);
-    width: 32px;
+    width: 36px;
   }
   ul.rule-list { padding-left: 20px; }
   ul.rule-list li {
-    font-size: 19px;
-    line-height: 1.5;
-    margin-bottom: 12px;
-    color: rgba(255, 255, 255, 0.85);
+    font-size: 21px;
+    line-height: 1.55;
+    margin-bottom: 14px;
+    color: rgba(255,255,255,0.82);
     padding-left: 8px;
   }
   ul.rule-list li::marker { color: var(--bsp-cyan); }
   .rule-note {
     margin-top: 20px;
-    padding: 14px 18px;
-    background: rgba(0, 180, 255, 0.06);
+    padding: 12px 16px;
+    background: rgba(0,180,255,0.05);
     border-left: 3px solid var(--bsp-cyan);
-    font-size: 17px;
-    color: rgba(255, 255, 255, 0.75);
+    border-radius: 0 4px 4px 0;
+    font-size: 18px;
+    color: rgba(255,255,255,0.65);
+    font-style: italic;
   }
-  .rule-body { font-size: 19px; line-height: 1.6; color: rgba(255, 255, 255, 0.85); }
+  .rule-body { font-size: 21px; line-height: 1.65; color: rgba(255,255,255,0.82); }
   .winning .big-say {
     font-family: var(--font-display);
-    font-size: clamp(40px, 5vw, 68px);
-    line-height: 0.95;
+    font-size: clamp(44px, 5.5vw, 72px);
+    line-height: 0.92;
     margin-bottom: 20px;
-    letter-spacing: -1px;
+    letter-spacing: -1.5px;
     color: var(--bsp-white);
   }
 
-  @media (max-width: 1100px) { .rules-grid { grid-template-columns: 1fr; } }
+  /* ── Image panels ── */
+  .rule-img-col {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 420px;
+    position: relative;
+  }
+  .img-glow-cyan::before,
+  .img-glow-pink::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 8px;
+    pointer-events: none;
+  }
+  .img-glow-cyan::before {
+    background: radial-gradient(ellipse at center, rgba(0,180,255,0.08) 0%, transparent 70%);
+  }
+  .img-glow-pink::before {
+    background: radial-gradient(ellipse at center, rgba(255,0,120,0.08) 0%, transparent 70%);
+  }
+
+  @keyframes fan-float {
+    0%, 100% { transform: rotate(-4deg) translate(0px, -6px); }
+    50%       { transform: rotate(-4deg) translate(0px, -18px); }
+  }
+  .card-fan {
+    position: relative;
+    width: 580px;
+    height: 420px;
+    flex-shrink: 0;
+    transform: translateX(140px);
+  }
+  .fan-card {
+    position: absolute;
+    width: 290px;
+    height: auto;
+    border-radius: 24px;
+    border: 3px solid rgba(0,0,0,0.8);
+    object-fit: cover;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.75), 0 4px 12px rgba(0,0,0,0.5);
+    transition: transform 0.3s;
+  }
+  .fan-1 { transform: rotate(-16deg) translate(-195px, 18px); z-index: 1; }
+  .fan-2 { transform: rotate(-5deg)  translate(-62px, 6px);   z-index: 2; }
+  .fan-3 { animation: fan-float 3.5s ease-in-out infinite;    z-index: 4; }
+  .fan-4 { transform: rotate(13deg)  translate(190px, 16px);  z-index: 1; }
+  .card-fan:hover .fan-1 { transform: rotate(-18deg) translate(-210px, 12px); }
+  .card-fan:hover .fan-4 { transform: rotate(15deg)  translate(206px, 10px); }
+
+  /* ── Answer cards (Yes / No) ── */
+  .answer-cards {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+  }
+  .answer-wrap { position: relative; }
+  .answer-card {
+    display: block;
+    width: 290px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 24px;
+    overflow: hidden;
+    transition: transform 0.35s, filter 0.35s;
+  }
+  .ac-yes {
+    transform: rotate(-7deg) translateY(-10px);
+    filter: drop-shadow(0 10px 32px rgba(0,180,255,0.5));
+  }
+  .ac-no {
+    transform: rotate(7deg) translateY(10px);
+    filter: drop-shadow(0 10px 32px rgba(255,0,120,0.5));
+  }
+  .answer-card:hover {
+    transform: rotate(0deg) translateY(-20px) scale(1.05) !important;
+  }
+
+  /* ── Nominate standees ── */
+  .nom-standees {
+    display: flex;
+    gap: 44px;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .nominate-card {
+    width: 260px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 24px;
+    overflow: hidden;
+    filter: drop-shadow(0 14px 40px rgba(0,0,0,0.75));
+    transition: transform 0.35s;
+  }
+  .nominate-card:first-child { transform: rotate(-6deg) translateY(-14px); }
+  .nominate-card:last-child  { transform: rotate(6deg)  translateY(14px); }
+  .nominate-card:hover { transform: translateY(-18px) rotate(0deg) scale(1.05); }
+
+  /* ── Responsive ── */
+  @media (max-width: 1100px) {
+    .rule-row,
+    .rules-grid { grid-template-columns: 1fr; gap: 40px; }
+    .rule-row-reverse .rule-img-col,
+    .rule-row-reverse .rules-col { order: unset; }
+    .rule-img-col { order: -1; min-height: 300px; }
+    .card-fan { width: 360px; height: 320px; }
+    .fan-card { width: 200px; }
+    .answer-card { width: 200px; }
+    .nom-q-card { display: none; }
+    .nominate-card { width: 180px; }
+  }
+
+  @media (max-width: 620px) {
+    .rule-band .section-inner { padding: 40px var(--content-padding); }
+    .rules-col { padding: 28px 24px; }
+    .card-fan { width: 280px; height: 260px; }
+    .fan-card { width: 160px; }
+    .answer-card { width: 140px; }
+    .nominate-card { width: 130px; }
+  }
 </style>
