@@ -58,7 +58,7 @@
     grid-template-columns: 1.1fr 1fr;
     align-items: center;
     gap: 40px;
-    padding: 70px var(--content-padding) 120px;
+    padding: 24px var(--content-padding) 80px;
     overflow: hidden;
     isolation: isolate;
     z-index: 2;
@@ -127,7 +127,7 @@
     line-height: 0.88;
     letter-spacing: -2px;
     text-transform: uppercase;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
     position: relative;
   }
   .hero h1 .line-1 { display: block; }
@@ -154,7 +154,7 @@
     line-height: 1.55;
     color: rgba(255, 255, 255, 0.78);
     max-width: 560px;
-    margin-bottom: 44px;
+    margin-bottom: 28px;
   }
 
   .hero-ctas { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; }
@@ -162,8 +162,8 @@
   .hero-meta {
     display: flex;
     gap: 50px;
-    margin-top: 60px;
-    padding-top: 36px;
+    margin-top: 32px;
+    padding-top: 24px;
     border-top: 1px solid rgba(255, 255, 255, 0.12);
   }
   .hero-meta-item .num {
@@ -198,7 +198,8 @@
     width: 280px;
     height: 400px;
     border-radius: 18px;
-    overflow: visible;
+    overflow: hidden;
+    border: 3px solid var(--bsp-black);
     transition: transform 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.3);
     will-change: transform;
   }
@@ -206,9 +207,9 @@
   .card img {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     display: block;
-    border-radius: 18px;
+    border-radius: 0;
     filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6));
   }
 
@@ -229,6 +230,14 @@
   .card-stack:hover .card-2 { transform: translate(-60px, -35px) rotate(-5deg); }
   .card-stack:hover .card-3 { transform: translate(180px, 70px) rotate(18deg); }
   .card-stack:hover .card-4 { transform: translate(70px, -110px) rotate(2deg); animation: none; }
+
+  /* Active card sits front and centre */
+  .card { cursor: pointer; }
+  .card--active {
+    transform: translate(0, -30px) rotate(0deg) scale(1.08) !important;
+    z-index: 10 !important;
+    animation: none !important;
+  }
 
   /* Mascot */
   .mascot {
@@ -267,8 +276,8 @@
     pointer-events: none;
   }
   .sticker-1 {
-    top: 47%;
-    left: 8%;
+    bottom: 22%;
+    right: 4%;
     border: 2px solid var(--bsp-black);
   }
   .sticker-1::before {
@@ -301,3 +310,21 @@
     .card { width: 230px; height: 340px; }
   }
 </style>
+
+<script>
+  const cards = document.querySelectorAll('.hero .card');
+
+  cards.forEach((card) => {
+    card.addEventListener('click', () => {
+      const isAlreadyActive = card.classList.contains('card--active');
+
+      // Remove active from all cards first
+      cards.forEach((c) => c.classList.remove('card--active'));
+
+      // Toggle: clicking the active card again deactivates it
+      if (!isAlreadyActive) {
+        card.classList.add('card--active');
+      }
+    });
+  });
+</script>

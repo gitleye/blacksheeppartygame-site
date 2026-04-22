@@ -154,7 +154,7 @@ import CTABand from '../components/CTABand.astro';
 </script>
 
 <style>
-  .page-hero { padding-top: 80px; padding-bottom: 0; position: relative; z-index: 2; }
+  .page-hero { padding-top: 56px; padding-bottom: 0; position: relative; z-index: 2; }
   .page-title {
     font-family: var(--font-display);
     font-size: clamp(56px, 8vw, 120px);
@@ -171,7 +171,7 @@ import CTABand from '../components/CTABand.astro';
     display: grid;
     grid-template-columns: 1fr 1.2fr;
     gap: 60px;
-    padding: 80px var(--content-padding) !important;
+    padding: 56px var(--content-padding) !important;
   }
   .contact-col {
     background: var(--bsp-black);
@@ -235,7 +235,7 @@ import CTABand from '../components/CTABand.astro';
   .contact-form select,
   .contact-form textarea {
     background: var(--bsp-ink);
-    border: 1px solid rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.35);
     color: var(--bsp-white);
     padding: 14px 16px;
     font-family: var(--font-body);
@@ -270,6 +270,7 @@ import CTABand from '../components/CTABand.astro';
     padding: 28px;
     border-radius: 4px;
   }
+  .form-success[hidden] { display: none; }
   .success-icon { font-size: 36px; color: var(--bsp-cyan); line-height: 1; flex-shrink: 0; }
   .form-success strong {
     font-family: var(--font-display);

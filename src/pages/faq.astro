@@ -7,44 +7,9 @@ import CTABand from '../components/CTABand.astro';
   title="FAQ — Black Sheep Party Game"
   description="Frequently asked questions about Black Sheep — shipping, expansions, wholesale, and more."
 >
-  <section class="page-hero">
-    <div class="section-inner">
-      <span class="eyebrow">Help</span>
-      <h1 class="page-title">Frequently<br/>Asked <span class="accent-pink">Questions</span>.</h1>
-      <p class="lede">
-        Got a question we haven't answered? <a href="/contact/">Drop us a message</a>.
-      </p>
-    </div>
-  </section>
-
   <FAQ />
   <CTABand />
 </BaseLayout>
 
 <style>
-  .page-hero {
-    padding-top: 80px;
-    padding-bottom: 0;
-    position: relative;
-    z-index: 2;
-  }
-  .page-title {
-    font-family: var(--font-display);
-    font-size: clamp(56px, 8vw, 120px);
-    line-height: 0.92;
-    text-transform: uppercase;
-    letter-spacing: -1.5px;
-    margin-bottom: 24px;
-  }
-  .accent-pink { color: var(--bsp-pink); }
-  .lede {
-    font-size: 22px;
-    color: rgba(255, 255, 255, 0.75);
-    max-width: 600px;
-  }
-  .lede a {
-    color: var(--bsp-cyan);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
 </style>

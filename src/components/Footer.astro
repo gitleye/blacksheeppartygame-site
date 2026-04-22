@@ -8,7 +8,6 @@ const socials = [
 ];
 ---
 <footer>
-  <div class="footer-big" aria-hidden="true">BLACK SHEEP</div>
   <div class="footer-inner">
     <div class="footer-brand">
       <img src="/images/logos/logo-original.png" alt="Black Sheep" width="80" height="80" />
@@ -53,22 +52,10 @@ const socials = [
 <style>
   footer {
     background: var(--bsp-black);
-    padding: 80px var(--content-padding) 36px;
+    padding: 52px var(--content-padding) 32px;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
     position: relative;
     z-index: 2;
-  }
-  .footer-big {
-    font-family: var(--font-display);
-    font-size: clamp(80px, 18vw, 240px);
-    line-height: 0.85;
-    text-transform: uppercase;
-    text-align: center;
-    margin-bottom: 60px;
-    color: transparent;
-    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.12);
-    letter-spacing: -8px;
-    pointer-events: none;
   }
   .footer-inner {
     max-width: var(--max-width);
@@ -82,7 +69,7 @@ const socials = [
   .footer-brand p {
     color: rgba(255, 255, 255, 0.6);
     max-width: 340px;
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.6;
   }
   .footer-col h5 {
@@ -99,7 +86,7 @@ const socials = [
   .footer-col a {
     color: rgba(255, 255, 255, 0.82);
     text-decoration: none;
-    font-size: 15px;
+    font-size: 16px;
     transition: color 0.2s;
   }
   .footer-col a:hover { color: var(--bsp-pink); }
@@ -139,13 +126,14 @@ const socials = [
     align-items: center;
     flex-wrap: wrap;
     gap: 20px;
-    font-size: 13px;
+    font-size: 15px;
     color: rgba(255, 255, 255, 0.5);
   }
   .footer-bottom a {
     color: rgba(255, 255, 255, 0.5);
     margin-left: 20px;
     text-decoration: none;
+    font-size: 15px;
   }
   .footer-bottom a:hover { color: var(--bsp-cyan); }
 
