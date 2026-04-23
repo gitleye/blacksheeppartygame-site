@@ -57,6 +57,9 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
       <slot />
     </main>
     <Footer />
+
+    <button id="back-to-top" aria-label="Back to top" title="Back to top">↑</button>
+
     <script>
       // Scroll reveal
       const io = new IntersectionObserver(
@@ -72,6 +75,15 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
       );
       document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
 
+      // Back to top
+      const btt = document.getElementById('back-to-top');
+      if (btt) {
+        window.addEventListener('scroll', () => {
+          btt.classList.toggle('visible', window.scrollY > 400);
+        }, { passive: true });
+        btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+      }
+
       // Tap-to-flip on touch devices for any .flip-card
       document.querySelectorAll('.flip-card').forEach((card) => {
         card.addEventListener('click', () => card.classList.toggle('flipped'));
@@ -85,3 +97,38 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href;
     </script>
   </body>
 </html>
+
+<style>
+  #back-to-top {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    z-index: 999;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--bsp-cyan);
+    color: var(--bsp-black);
+    border: none;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(0, 180, 255, 0.4);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.25s, transform 0.25s;
+    pointer-events: none;
+  }
+  #back-to-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  #back-to-top:hover {
+    background: var(--bsp-white);
+    box-shadow: 0 4px 24px rgba(0, 180, 255, 0.6);
+  }
+</style>

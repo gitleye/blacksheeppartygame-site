@@ -3,17 +3,43 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import CTABand from '../components/CTABand.astro';
 ---
 <BaseLayout title="How to Play — Black Sheep Party Game" description="Learn to play Black Sheep in under two minutes. Full rules, step by step.">
-  <section class="hero-compact">
-    <div class="section-inner">
-      <span class="eyebrow">Rules</span>
-      <h1 class="page-title">How to <span class="accent-cyan">Play</span>.</h1>
-      <p class="lede">
-        Learn Black Sheep in two minutes. Play for hours. The fewest points wins.
-      </p>
+
+  <section class="htp-hero">
+    <!-- Background effects -->
+    <div class="htp-bg" aria-hidden="true"></div>
+
+    <!-- Floating tokens -->
+    <img src="/images/product-photos/flat-token.png" class="token token-1" aria-hidden="true" alt="" />
+    <img src="/images/product-photos/flat-token.png" class="token token-2" aria-hidden="true" alt="" />
+    <img src="/images/product-photos/flat-token.png" class="token token-3" aria-hidden="true" alt="" />
+    <img src="/images/product-photos/flat-token.png" class="token token-4" aria-hidden="true" alt="" />
+    <img src="/images/product-photos/flat-token.png" class="token token-5" aria-hidden="true" alt="" />
+
+    <div class="htp-hero-inner">
+      <div class="htp-copy">
+        <span class="eyebrow">Rules</span>
+        <h1 class="page-title">How to <span class="accent-cyan">Play</span>.</h1>
+        <p class="lede">Learn Black Sheep in two minutes. Play for hours. You win if you don't lose!</p>
+        <a href="#rules" class="btn btn-outline" style="margin-top: 16px;">Jump to the rules &darr;</a>
+      </div>
+
+      <div class="htp-cards" aria-hidden="true">
+        <div class="htp-card htp-card-1"><img src="/images/cards/nominate/nominate-a.png" alt="" /></div>
+        <div class="htp-card htp-card-2"><img src="/images/cards/front/028.webp" alt="" /></div>
+        <div class="htp-card htp-card-3"><img src="/images/cards/answer/a-yes.png" alt="" /></div>
+        <div class="htp-card htp-card-4"><img src="/images/cards/front/051.webp" alt="" /></div>
+        <div class="htp-card htp-card-5"><img src="/images/cards/answer/b-no.png" alt="" /></div>
+        <div class="htp-card htp-card-6"><img src="/images/cards/nominate/nominate-b.png" alt="" /></div>
+      </div>
     </div>
   </section>
 
-  <section class="rules-section">
+  <section class="rules-section" id="rules">
+    <!-- Decorative tokens in rules bg -->
+    <img src="/images/product-photos/flat-token.png" class="rules-token rules-token-1" aria-hidden="true" alt="" />
+    <img src="/images/product-photos/flat-token.png" class="rules-token rules-token-2" aria-hidden="true" alt="" />
+    <img src="/images/product-photos/flat-token.png" class="rules-token rules-token-3" aria-hidden="true" alt="" />
+
     <div class="section-inner rules-grid">
       <div class="rules-col reveal">
         <h2 class="rule-heading">Getting Started</h2>
@@ -25,7 +51,9 @@ import CTABand from '../components/CTABand.astro';
           <li>Start by picking a card and reading it out loud.</li>
         </ol>
       </div>
-      <div class="rules-col reveal reveal-2">
+      <div class="rules-col rules-col--yesno reveal reveal-2">
+        <img src="/images/cards/answer/a-yes.png" class="col-card col-card-1" aria-hidden="true" alt="" />
+        <img src="/images/cards/answer/b-no.png"  class="col-card col-card-2" aria-hidden="true" alt="" />
         <h2 class="rule-heading accent-pink-head">Yes / No Cards</h2>
         <ol class="rule-list">
           <li>Everyone places a "Yes" or "No" answer card face down.</li>
@@ -38,6 +66,8 @@ import CTABand from '../components/CTABand.astro';
 
     <div class="section-inner rules-grid">
       <div class="rules-col reveal">
+        <img src="/images/cards/nominate/nominate-a.png" class="col-card col-card-1" aria-hidden="true" alt="" />
+        <img src="/images/cards/nominate/nominate-b.png" class="col-card col-card-2" aria-hidden="true" alt="" />
         <h2 class="rule-heading">Nominate Cards</h2>
         <ol class="rule-list">
           <li>When a player picks up a "Nominate" card, they assign any two players as "A" and "B".</li>
@@ -48,12 +78,11 @@ import CTABand from '../components/CTABand.astro';
         <p class="rule-note">In a tie, only the active player gets a point.</p>
       </div>
       <div class="rules-col reveal reveal-2 winning">
+        <img src="/images/cards/front/051.webp" class="col-card col-card-1 col-card--large" aria-hidden="true" alt="" />
         <h2 class="rule-heading accent-pink-head">Winning the Game</h2>
-        <p class="big-say">You win if you don't lose.</p>
-        <p class="rule-body">
-          The player with the fewest points when the tokens run out is the{' '}
-          <strong class="accent-pink">Black Sheep</strong> — the winner.
-        </p>
+        <p class="big-say">You win if you don't lose!</p>
+        <p class="rule-body">The player with the fewest points when the tokens run out is the…</p>
+        <p class="black-sheep-reveal"><strong>Black Sheep!</strong></p>
       </div>
     </div>
 
@@ -75,57 +104,207 @@ import CTABand from '../components/CTABand.astro';
 </BaseLayout>
 
 <style>
-  .hero-compact {
-    padding-top: 80px;
-    padding-bottom: 40px;
+  /* ── Hero ── */
+  .htp-hero {
     position: relative;
+    min-height: 72vh;
+    display: flex;
+    align-items: center;
+    overflow: clip;
+    isolation: isolate;
     z-index: 2;
+    padding: 80px var(--content-padding) 60px;
   }
+  .htp-hero::before {
+    content: '';
+    position: absolute;
+    inset: -100%;
+    z-index: -2;
+    background: repeating-conic-gradient(
+      from 0deg at 68% 52%,
+      rgba(255,255,255,0.04) 0deg 5deg,
+      transparent 5deg 11deg
+    );
+    animation: slow-spin 180s linear infinite;
+  }
+  @keyframes slow-spin { to { transform: rotate(360deg); } }
+  .htp-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(ellipse 800px 600px at 70% 50%, rgba(0,180,255,0.14), transparent 60%),
+      radial-gradient(ellipse 600px 500px at 20% 80%, rgba(255,31,142,0.12), transparent 55%);
+  }
+
+  .htp-hero-inner {
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  /* Copy */
+  .htp-copy { position: relative; z-index: 2; }
   .page-title {
     font-family: var(--font-display);
     font-size: clamp(56px, 8vw, 120px);
     line-height: 0.92;
     text-transform: uppercase;
     letter-spacing: -1.5px;
-    margin-bottom: 24px;
+    margin: 16px 0 24px;
   }
-  .accent-cyan { color: var(--bsp-cyan); }
+  .accent-cyan  { color: var(--bsp-cyan); }
   .accent-pink-head { color: var(--bsp-pink); }
   .lede {
     font-size: 20px;
-    color: rgba(255, 255, 255, 0.75);
-    max-width: 600px;
+    color: rgba(255,255,255,0.75);
+    max-width: 520px;
+    line-height: 1.55;
   }
 
-  .rules-section { background: var(--bsp-ink); position: relative; z-index: 2; }
-  .rules-section .section-inner { padding: 60px var(--content-padding); }
-  .rules-section .section-inner:last-of-type { padding-bottom: 120px; }
+  /* Card stack */
+  .htp-cards {
+    position: relative;
+    height: 460px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1200px;
+  }
+  .htp-card {
+    position: absolute;
+    width: 220px;
+    height: 314px;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 24px 52px rgba(0,0,0,0.6);
+    transition: transform 0.5s cubic-bezier(0.2,0.9,0.3,1.2);
+    cursor: pointer;
+  }
+  .htp-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .htp-card-1 { transform: translate(-170px, 40px) rotate(-18deg); z-index: 1; }
+  .htp-card-2 { transform: translate(-60px, 10px) rotate(-7deg); z-index: 3; }
+  .htp-card-3 { transform: translate(20px, -30px) rotate(2deg); z-index: 5; }
+  .htp-card-4 { transform: translate(110px, 10px) rotate(9deg); z-index: 3; }
+  .htp-card-5 {
+    transform: translate(185px, -10px) rotate(16deg); z-index: 2;
+    animation: card-bob 5s ease-in-out infinite;
+  }
+  .htp-card-6 { transform: translate(-10px, 60px) rotate(-3deg); z-index: 4; }
+  @keyframes card-bob {
+    0%,100% { transform: translate(185px, -10px) rotate(16deg); }
+    50%      { transform: translate(185px, -24px) rotate(17deg); }
+  }
+  .htp-card-1:hover { transform: translate(-170px, 20px) rotate(-10deg) scale(1.05); z-index: 10; }
+  .htp-card-2:hover { transform: translate(-60px, -8px) rotate(-3deg) scale(1.05); z-index: 10; }
+  .htp-card-3:hover { transform: translate(20px, -48px) rotate(0deg) scale(1.05); z-index: 10; }
+  .htp-card-4:hover { transform: translate(110px, -8px) rotate(4deg) scale(1.05); z-index: 10; }
+  .htp-card-5:hover { transform: translate(185px, -28px) rotate(10deg) scale(1.05); z-index: 10; animation: none; }
+  .htp-card-6:hover { transform: translate(-10px, 44px) rotate(0deg) scale(1.05); z-index: 10; }
+
+  /* ── Floating tokens ── */
+  .token {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.18;
+    z-index: 1;
+    user-select: none;
+  }
+  .token-1 { width: 90px;  top: 10%;  left: 4%;   animation: tok-float 7s ease-in-out infinite; }
+  .token-2 { width: 60px;  top: 65%;  left: 8%;   animation: tok-float 9s ease-in-out infinite 1.5s; }
+  .token-3 { width: 110px; top: 15%;  right: 6%;  animation: tok-float 8s ease-in-out infinite 0.8s; }
+  .token-4 { width: 70px;  bottom: 12%; right: 12%; animation: tok-float 6s ease-in-out infinite 2s; }
+  .token-5 { width: 50px;  top: 50%;  left: 46%;  animation: tok-float 10s ease-in-out infinite 3s; }
+  @keyframes tok-float {
+    0%,100% { transform: translateY(0) rotate(0deg); }
+    33%     { transform: translateY(-14px) rotate(8deg); }
+    66%     { transform: translateY(6px) rotate(-5deg); }
+  }
+
+  /* ── Rules section ── */
+  .rules-section {
+    background: var(--bsp-ink);
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+  }
+  .rules-section .section-inner { padding: 28px var(--content-padding); }
+  .rules-section .section-inner:first-of-type { padding-top: 60px; }
+  .rules-section .section-inner:last-of-type { padding-bottom: 80px; }
+
+  /* Rules decorative tokens */
+  .rules-token {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.07;
+    z-index: 0;
+  }
+  .rules-token-1 { width: 160px; top: 5%;  right: 2%;  animation: tok-float 11s ease-in-out infinite; }
+  .rules-token-2 { width: 100px; top: 40%; left: 1%;   animation: tok-float 8s  ease-in-out infinite 2s; }
+  .rules-token-3 { width: 130px; bottom: 8%; right: 8%; animation: tok-float 9s  ease-in-out infinite 1s; }
 
   .rules-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    gap: 24px;
+    position: relative;
+    z-index: 1;
   }
   .rules-col {
     background: var(--bsp-black);
-    padding: 40px 36px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 40px 36px 100px;
+    border: 1px solid rgba(255,255,255,0.08);
     border-radius: 4px;
+    transition: border-color 0.3s, transform 0.3s;
+    position: relative;
+    overflow: hidden;
   }
+  .rules-col:hover {
+    border-color: rgba(0,180,255,0.25);
+    transform: translateY(-4px);
+  }
+
+  /* Decorative cards — clean fan on the right */
+  .col-card {
+    position: absolute;
+    width: 100px;
+    pointer-events: none;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    transition: opacity 0.3s;
+  }
+  .col-card-1 {
+    bottom: 24px;
+    right: 20px;
+    transform: rotate(10deg);
+    opacity: 0.55;
+    z-index: 1;
+  }
+  .col-card-2 {
+    bottom: 24px;
+    right: 136px;
+    transform: rotate(-8deg);
+    opacity: 0.45;
+    z-index: 0;
+  }
+  .rules-col:hover .col-card-1 { opacity: 0.75; }
+  .rules-col:hover .col-card-2 { opacity: 0.65; }
+  .col-card--large { width: 180px; }
+  .rules-col--yesno .col-card-1 { bottom: -10px; }
+  .rules-col--yesno .col-card-2 { bottom: -10px; }
   .rule-heading {
     font-family: var(--font-display);
-    font-size: clamp(30px, 3.5vw, 44px);
+    font-size: clamp(28px, 3vw, 40px);
     line-height: 1;
     margin-bottom: 24px;
     color: var(--bsp-cyan);
     letter-spacing: -0.5px;
   }
-  .rule-list {
-    padding-left: 0;
-    list-style: none;
-    counter-reset: rule-counter;
-  }
-  ol.rule-list { counter-reset: rule-counter; }
+  ol.rule-list { counter-reset: rule-counter; padding-left: 0; list-style: none; }
   ol.rule-list li {
     counter-increment: rule-counter;
     position: relative;
@@ -133,44 +312,61 @@ import CTABand from '../components/CTABand.astro';
     margin-bottom: 18px;
     font-size: 17px;
     line-height: 1.5;
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255,255,255,0.85);
   }
   ol.rule-list li::before {
     content: counter(rule-counter, decimal-leading-zero);
     position: absolute;
-    left: 0;
-    top: 0;
+    left: 0; top: 0;
     font-family: var(--font-display);
     font-size: 20px;
     color: var(--bsp-pink);
     width: 32px;
   }
-  ul.rule-list { padding-left: 20px; }
+  ul.rule-list { padding-left: 20px; list-style: none; }
   ul.rule-list li {
     font-size: 17px;
     line-height: 1.5;
     margin-bottom: 12px;
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255,255,255,0.85);
     padding-left: 8px;
   }
   ul.rule-list li::marker { color: var(--bsp-cyan); }
   .rule-note {
     margin-top: 20px;
     padding: 14px 18px;
-    background: rgba(0, 180, 255, 0.06);
+    background: rgba(0,180,255,0.06);
     border-left: 3px solid var(--bsp-cyan);
     font-size: 15px;
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(255,255,255,0.75);
   }
-  .rule-body { font-size: 17px; line-height: 1.6; color: rgba(255, 255, 255, 0.85); }
+  .rule-body { font-size: 17px; line-height: 1.6; color: rgba(255,255,255,0.85); }
   .winning .big-say {
     font-family: var(--font-display);
-    font-size: clamp(40px, 5vw, 68px);
-    line-height: 0.95;
-    margin-bottom: 20px;
-    letter-spacing: -1px;
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
     color: var(--bsp-white);
   }
+  .black-sheep-reveal {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 3.5vw, 48px);
+    color: var(--bsp-pink);
+    line-height: 1;
+    margin-top: 12px;
+    letter-spacing: -0.5px;
+  }
 
-  @media (max-width: 1100px) { .rules-grid { grid-template-columns: 1fr; } }
+
+  @media (max-width: 1100px) {
+    .htp-hero-inner { grid-template-columns: 1fr; }
+    .htp-cards { height: 340px; margin-top: 40px; }
+    .rules-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 620px) {
+    .htp-card { width: 180px; height: 257px; }
+    .htp-card-1 { transform: translate(-80px, 20px) rotate(-12deg); }
+    .htp-card-3 { transform: translate(85px, 30px) rotate(10deg); }
+  }
 </style>
