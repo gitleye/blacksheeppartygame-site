@@ -4,17 +4,21 @@ import Hero from '../components/Hero.astro';
 import Marquee from '../components/Marquee.astro';
 import WhyPlay from '../components/WhyPlay.astro';
 import HowToPlay from '../components/HowToPlay.astro';
+import VideoSection from '../components/VideoSection.astro';
 import CardsShowcase from '../components/CardsShowcase.astro';
 import Testimonials from '../components/Testimonials.astro';
 import FAQ from '../components/FAQ.astro';
 import CTABand from '../components/CTABand.astro';
 ---
-<BaseLayout title="Black Sheep Party Game — Get Everyone Talking">
+<BaseLayout
+  title="Black Sheep Party Game — Get Everyone Talking"
+  description="The outrageous party card game that makes friends tell on themselves. 150 questions, 2-minute setup, free shipping to US, UK & Canada."
+>
   <Hero />
-  <Marquee items={['Get Everyone Talking', 'Play Black Sheep', 'Win By Losing']} variant="cyan" />
+  <Marquee items={['Get Everyone Talking', 'Play Black Sheep', 'One Loser. Everyone Else Wins.']} variant="cyan" />
   <WhyPlay />
   <HowToPlay />
-  <Marquee items={['150 Outrageous Questions', 'Unique Every Game', 'Made for Parties']} variant="pink" />
+  <VideoSection />
   <CardsShowcase />
   <Testimonials limit={6} />
   <FAQ />

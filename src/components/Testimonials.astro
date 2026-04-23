@@ -2,10 +2,9 @@
 import { getCollection } from 'astro:content';
 
 export interface Props {
-  /** How many testimonials to show; default 6 (featured first) */
   limit?: number;
 }
-const { limit = 6 } = Astro.props;
+const { limit = 9 } = Astro.props;
 
 const all = await getCollection('testimonials');
 const sorted = all.sort((a, b) => {
@@ -14,6 +13,7 @@ const sorted = all.sort((a, b) => {
   return a.data.order - b.data.order;
 });
 const list = sorted.slice(0, limit);
+const track = [...list, ...list]; // doubled for seamless loop
 ---
 <section class="testimonials" id="reviews">
   <div class="testimonials-inner">
@@ -21,85 +21,123 @@ const list = sorted.slice(0, limit);
       <span class="eyebrow">Hear it from the herd</span>
       <h2 class="section-title">Reviews we're<br/>not <span class="accent-cyan">paying for</span>.</h2>
     </div>
-    <div class="test-grid">
-      {list.map(async (t, i) => {
-        const { Content } = await t.render();
-        return (
-          <div class={`testimonial reveal reveal-${(i % 3) + 1}`}>
-            <div class="stars">{'★ '.repeat(t.data.rating).trim()}</div>
-            <div class="quote"><Content /></div>
-            <div class="by">— {t.data.author}</div>
-          </div>
-        );
-      })}
+  </div>
+
+  <div class="test-carousel-wrap">
+    <div class="test-viewport" id="testViewport">
+      <div class="test-track" id="testTrack">
+        {track.map(async (t, i) => {
+          const { Content } = await t.render();
+          return (
+            <div class="testimonial">
+              <div class="stars">{'★ '.repeat(t.data.rating).trim()}</div>
+              <div class="quote"><Content /></div>
+              <div class="by">— {t.data.author}</div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   </div>
 </section>
 
+<script>
+  const track = document.getElementById('testTrack');
+  const viewport = document.getElementById('testViewport');
+  if (track && viewport) {
+    const CARD_W = 360 + 28; // card width + gap
+    const HALF = track.children.length / 2;
+    let offset = 0;
+    let paused = false;
+
+    function step() {
+      if (!paused) {
+        offset += 0.4;
+        if (offset >= CARD_W * HALF) offset -= CARD_W * HALF;
+        track.style.transform = `translateX(-${offset}px)`;
+      }
+      requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+
+    viewport.addEventListener('mouseenter', () => paused = true);
+    viewport.addEventListener('mouseleave', () => paused = false);
+  }
+</script>
+
 <style>
   .testimonials {
     background: var(--bsp-ink);
-    padding-top: 120px;
-    padding-bottom: 120px;
+    padding-top: 88px;
+    padding-bottom: 88px;
+    overflow: hidden;
   }
   .testimonials-inner {
     max-width: var(--max-width);
     margin: 0 auto;
     padding: 0 var(--content-padding);
   }
-  .test-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
-    margin-top: 64px;
+
+  .test-carousel-wrap {
+    margin-top: 56px;
   }
+  .test-viewport { overflow: hidden; }
+  .test-track {
+    display: flex;
+    gap: 28px;
+    will-change: transform;
+    padding: 12px 0 24px;
+  }
+
   .testimonial {
+    flex-shrink: 0;
+    width: 360px;
     background: var(--bsp-black);
-    padding: 40px 34px;
+    padding: 36px 32px;
     border-radius: 4px;
-    position: relative;
     border-left: 4px solid var(--bsp-cyan);
+    position: relative;
     transition: transform 0.3s;
   }
   .testimonial:hover { transform: translateY(-6px); }
   .testimonial:nth-child(3n + 2) { border-left-color: var(--bsp-pink); }
   .testimonial:nth-child(3n + 3) { border-left-color: var(--bsp-white); }
+
   .stars {
     color: var(--bsp-cyan);
     font-size: 14px;
     letter-spacing: 3px;
     margin-bottom: 16px;
   }
+  .testimonial:nth-child(3n + 2) .stars { color: var(--bsp-pink); }
+
   .quote {
     font-family: var(--font-display);
-    font-size: 22px;
+    font-size: 21px;
     line-height: 1.2;
-    margin-bottom: 28px;
-    position: relative;
+    margin-bottom: 24px;
     letter-spacing: -0.3px;
+    position: relative;
   }
   .quote :global(p) { margin: 0; }
   .quote::before {
     content: '\201C';
     position: absolute;
-    top: -56px;
-    left: -8px;
+    top: -48px; left: -8px;
     font-family: var(--font-display);
-    font-size: 110px;
+    font-size: 100px;
     color: var(--bsp-cyan);
-    opacity: 0.25;
+    opacity: 0.2;
     line-height: 1;
   }
   .testimonial:nth-child(3n + 2) .quote::before { color: var(--bsp-pink); }
+
   .by {
     font-family: var(--font-body);
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
-    font-size: 13px;
-    color: rgba(255, 255, 255, 0.55);
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
   }
-
-  @media (max-width: 1100px) { .test-grid { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 620px) { .test-grid { grid-template-columns: 1fr; } }
 </style>

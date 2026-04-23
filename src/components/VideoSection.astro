@@ -1,0 +1,47 @@
+---
+// Promo video section — YouTube embed, constrained to content width
+const videoId = 'ox9uyaNCHLo';
+---
+<section class="video-section">
+  <div class="section-inner">
+    <div class="reveal" style="max-width: 740px; margin-bottom: 48px;">
+      <span class="eyebrow">See it in action</span>
+      <h2 class="section-title">Watch the <span class="accent-cyan">chaos</span> unfold.</h2>
+    </div>
+    <div class="video-wrap reveal reveal-2">
+      <iframe
+        src={`https://www.youtube-nocookie.com/embed/${videoId}?autoplay=0&mute=1&loop=1&playlist=${videoId}&rel=0&modestbranding=1`}
+        title="Black Sheep Party Game — promo video"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        loading="lazy"
+      ></iframe>
+    </div>
+  </div>
+</section>
+
+<style>
+  .video-section {
+    background: var(--bsp-ink);
+    position: relative;
+    z-index: 2;
+  }
+  .video-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    aspect-ratio: 16/9;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.08);
+  }
+  .video-wrap iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+</style>
