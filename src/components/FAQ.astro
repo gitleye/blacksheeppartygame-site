@@ -8,6 +8,7 @@ const faqs = (await getCollection('faqs')).sort((a, b) => a.data.order - b.data.
     <div class="reveal" style="max-width: 740px">
       <span class="eyebrow">FAQ</span>
       <h2 class="section-title">Questions<br/>before the <span class="accent-pink">chaos</span>.</h2>
+      <p class="faq-lede">Got a question we haven't answered? <a href="/contact/">Drop us a message</a>.</p>
     </div>
     <div class="faq-list">
       {faqs.map(async (f, i) => {
@@ -27,6 +28,16 @@ const faqs = (await getCollection('faqs')).sort((a, b) => a.data.order - b.data.
 </section>
 
 <style>
+  .faq-lede {
+    font-size: 22px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 20px;
+  }
+  .faq-lede a {
+    color: var(--bsp-cyan);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
   .faq-list {
     margin-top: 60px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -89,3 +100,16 @@ const faqs = (await getCollection('faqs')).sort((a, b) => a.data.order - b.data.
   .faq-answer :global(ul) { margin: 12px 0; padding-left: 20px; }
   .faq-answer :global(li) { margin-bottom: 6px; }
 </style>
+
+<script>
+  const items = document.querySelectorAll('#faq .faq-item');
+  items.forEach((item) => {
+    item.addEventListener('toggle', () => {
+      if ((item as HTMLDetailsElement).open) {
+        items.forEach((other) => {
+          if (other !== item) (other as HTMLDetailsElement).open = false;
+        });
+      }
+    });
+  });
+</script>

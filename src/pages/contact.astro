@@ -33,7 +33,6 @@ import CTABand from '../components/CTABand.astro';
           <a href="https://instagram.com/blacksheeppartygame/" target="_blank" rel="noopener">Instagram</a>
           <a href="https://tiktok.com/@blacksheeppartygame_" target="_blank" rel="noopener">TikTok</a>
           <a href="https://facebook.com/profile.php?id=61557441800367" target="_blank" rel="noopener">Facebook</a>
-          <a href="https://youtube.com/@blacksheeppartygame/shorts" target="_blank" rel="noopener">YouTube</a>
         </div>
       </div>
 
@@ -164,14 +163,14 @@ import CTABand from '../components/CTABand.astro';
     margin-bottom: 24px;
   }
   .accent-cyan { color: var(--bsp-cyan); }
-  .lede { font-size: 20px; color: rgba(255,255,255,0.75); max-width: 600px; }
+  .lede { font-size: 22px; color: rgba(255,255,255,0.75); max-width: 600px; }
 
   .contact-section { background: var(--bsp-ink); position: relative; z-index: 2; }
   .contact-grid {
     display: grid;
     grid-template-columns: 1fr 1.2fr;
     gap: 60px;
-    padding: 80px var(--content-padding) !important;
+    padding: 56px var(--content-padding) !important;
   }
   .contact-col {
     background: var(--bsp-black);
@@ -181,7 +180,7 @@ import CTABand from '../components/CTABand.astro';
   }
   .col-heading {
     font-family: var(--font-display);
-    font-size: clamp(28px, 3vw, 40px);
+    font-size: clamp(28px, 3.2vw, 42px);
     line-height: 1;
     margin-bottom: 28px;
     color: var(--bsp-cyan);
@@ -237,11 +236,11 @@ import CTABand from '../components/CTABand.astro';
   .contact-form select,
   .contact-form textarea {
     background: var(--bsp-ink);
-    border: 1px solid rgba(255,255,255,0.28);
+    border: 1px solid rgba(255,255,255,0.35);
     color: var(--bsp-white);
     padding: 14px 16px;
     font-family: var(--font-body);
-    font-size: 15px;
+    font-size: 18px;
     border-radius: 2px;
     transition: border-color 0.2s;
   }
@@ -272,6 +271,7 @@ import CTABand from '../components/CTABand.astro';
     padding: 28px;
     border-radius: 4px;
   }
+  .form-success[hidden] { display: none; }
   .success-icon { font-size: 36px; color: var(--bsp-cyan); line-height: 1; flex-shrink: 0; }
   .form-success strong {
     font-family: var(--font-display);

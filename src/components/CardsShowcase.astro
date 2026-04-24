@@ -1,35 +1,41 @@
 ---
 import { getCollection } from 'astro:content';
-const cards = (await getCollection('cards')).sort((a, b) => a.data.order - b.data.order);
-const track = [...cards, ...cards]; // doubled for seamless loop
+
+const cards = (await getCollection('cards')).sort(
+  (a, b) => a.data.order - b.data.order
+);
 ---
 <section class="cards-showcase" id="cards">
   <div class="section-inner">
-    <div class="reveal">
-      <span class="eyebrow">Inside the box</span>
-      <h2 class="section-title">150 questions.<br/>Zero <span class="accent-pink">comfort zone</span>.</h2>
+    <div class="showcase-header reveal">
+      <div>
+        <span class="eyebrow">Inside the box</span>
+        <h2 class="section-title">150 questions.<br/>Zero <span class="accent-pink">comfort zone</span>.</h2>
+      </div>
+      <div class="carousel-controls">
+        <button class="carousel-btn" id="cardsPrev" aria-label="Previous card">&#8592;</button>
+        <button class="carousel-btn" id="cardsNext" aria-label="Next card">&#8594;</button>
+      </div>
     </div>
-  </div>
-
-  <div class="carousel-wrap">
-    <button class="carousel-btn carousel-prev" aria-label="Previous cards">&#8592;</button>
-    <div class="carousel-viewport" id="carouselViewport">
-      <div class="carousel-track" id="carouselTrack">
-        {track.map((c, i) => (
-          <div class="flip-card" tabindex="0" data-index={i}>
+    <div class="cards-track-wrap" id="cardsWrap">
+      <div class="cards-track" id="cardsTrack">
+        {[...cards, ...cards].map((c, i) => (
+          <div class="flip-card" tabindex="0" aria-hidden={i >= cards.length ? "true" : "false"}>
             <div class="flip-inner">
               <div class="flip-face flip-front">
                 <img
                   src={`/images/cards/front/${c.data.number}.webp`}
                   alt={`Card #${c.data.number}: ${c.data.question}`}
-                  loading="lazy" decoding="async"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
               <div class="flip-face flip-back">
                 <img
                   src={`/images/cards/back/${c.data.number}.webp`}
                   alt={`Card #${c.data.number} back`}
-                  loading="lazy" decoding="async"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
             </div>
@@ -37,123 +43,73 @@ const track = [...cards, ...cards]; // doubled for seamless loop
         ))}
       </div>
     </div>
-    <button class="carousel-btn carousel-next" aria-label="Next cards">&#8594;</button>
   </div>
-
-  <div class="flip-hint">tap or hover a card to flip</div>
 </section>
-
-<script>
-  const track = document.getElementById('carouselTrack');
-  const viewport = document.getElementById('carouselViewport');
-  if (track && viewport) {
-    const CARD_W = 220 + 16; // card width + gap
-    const HALF = track.children.length / 2;
-
-    // Auto-scroll
-    let offset = 0;
-    let paused = false;
-    let animId;
-
-    function step() {
-      if (!paused) {
-        offset += 0.5;
-        // Seamless loop: when we've scrolled past the first half, jump back
-        if (offset >= CARD_W * HALF) offset -= CARD_W * HALF;
-        track.style.transform = `translateX(-${offset}px)`;
-      }
-      animId = requestAnimationFrame(step);
-    }
-    animId = requestAnimationFrame(step);
-
-    // Pause on hover
-    viewport.addEventListener('mouseenter', () => paused = true);
-    viewport.addEventListener('mouseleave', () => paused = false);
-
-    // Arrow buttons — jump by 2 cards
-    document.querySelector('.carousel-prev')?.addEventListener('click', () => {
-      offset = Math.max(0, offset - CARD_W * 2);
-      track.style.transform = `translateX(-${offset}px)`;
-    });
-    document.querySelector('.carousel-next')?.addEventListener('click', () => {
-      offset += CARD_W * 2;
-      if (offset >= CARD_W * HALF) offset -= CARD_W * HALF;
-      track.style.transform = `translateX(-${offset}px)`;
-    });
-
-    // Flip on click/tap
-    track.addEventListener('click', (e) => {
-      const card = (e.target as Element).closest('.flip-card');
-      if (card) {
-        paused = true;
-        card.classList.toggle('flipped');
-        setTimeout(() => paused = false, 1200);
-      }
-    });
-  }
-</script>
 
 <style>
   .cards-showcase {
     background: linear-gradient(180deg, var(--bsp-black) 0%, var(--bsp-deep) 100%);
     overflow: hidden;
-    padding-bottom: 56px;
   }
 
-  .carousel-wrap {
-    position: relative;
+  .showcase-header {
     display: flex;
-    align-items: center;
-    gap: 0;
-    margin-top: 56px;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
   }
 
+  .carousel-controls {
+    display: flex;
+    gap: 12px;
+    padding-bottom: 8px;
+  }
   .carousel-btn {
-    flex-shrink: 0;
-    width: 52px; height: 52px;
-    background: var(--bsp-ink);
-    border: 1px solid rgba(255,255,255,0.18);
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: transparent;
     color: var(--bsp-white);
     font-size: 22px;
-    border-radius: 50%;
     cursor: pointer;
-    transition: all 0.2s;
-    z-index: 10;
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    line-height: 1;
   }
-  .carousel-prev { left: 16px; }
-  .carousel-next { right: 16px; }
   .carousel-btn:hover {
     background: var(--bsp-cyan);
     border-color: var(--bsp-cyan);
     color: var(--bsp-black);
-    transform: translateY(-50%) scale(1.1);
+    transform: scale(1.08);
   }
+  .carousel-btn:active { transform: scale(0.95); }
 
-  .carousel-viewport {
+  .cards-track-wrap {
+    margin-top: 48px;
     overflow: hidden;
-    width: 100%;
   }
-
-  .carousel-track {
+  .cards-track {
     display: flex;
-    gap: 16px;
+    gap: 24px;
+    width: max-content;
     will-change: transform;
-    padding: 20px 0;
   }
 
   .flip-card {
     flex-shrink: 0;
-    width: 220px;
+    width: 260px;
     aspect-ratio: 2/3;
     perspective: 1000px;
     cursor: pointer;
   }
   .flip-inner {
     position: relative;
-    width: 100%; height: 100%;
+    width: 100%;
+    height: 100%;
     transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     transform-style: preserve-3d;
   }
@@ -166,20 +122,69 @@ const track = [...cards, ...cards]; // doubled for seamless loop
     -webkit-backface-visibility: hidden;
     border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   }
   .flip-front { background: var(--bsp-deep); }
-  .flip-back { transform: rotateY(180deg); background: var(--bsp-deep); }
-  .flip-face img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .flip-back  { transform: rotateY(180deg); background: var(--bsp-deep); }
 
-  .flip-hint {
-    text-align: center;
-    margin-top: 32px;
-    font-family: var(--font-marker);
-    font-size: 18px;
-    color: var(--bsp-cyan);
-    opacity: 0.7;
+  .flip-face img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
-  .flip-hint::before { content: '→ '; }
-  .flip-hint::after  { content: ' ←'; }
+
+  @media (max-width: 620px) { .flip-card { width: 200px; } }
 </style>
+
+<script>
+  document.querySelectorAll('.flip-card').forEach((card) => {
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+  });
+
+  const track = document.getElementById('cardsTrack') as HTMLElement;
+  const wrap  = document.getElementById('cardsWrap') as HTMLElement;
+  const prev  = document.getElementById('cardsPrev') as HTMLButtonElement;
+  const next  = document.getElementById('cardsNext') as HTMLButtonElement;
+
+  if (track && wrap && prev && next) {
+    const CARD_W   = 260 + 24;
+    const COUNT    = track.children.length / 2;
+    const LOOP_W   = COUNT * CARD_W;
+    const SPEED    = 0.6;
+
+    let pos        = 0;
+    let paused     = false;
+    let rafId: number;
+
+    function tick() {
+      if (!paused) {
+        pos += SPEED;
+        if (pos >= LOOP_W) pos -= LOOP_W;
+        track.style.transform = `translateX(-${pos}px)`;
+      }
+      rafId = requestAnimationFrame(tick);
+    }
+    tick();
+
+    wrap.addEventListener('mouseenter', () => { paused = true; });
+    wrap.addEventListener('mouseleave', () => { paused = false; });
+
+    function snap(direction: 1 | -1) {
+      paused = true;
+      const step = CARD_W * direction;
+      pos += step;
+      if (pos < 0) pos += LOOP_W;
+      if (pos >= LOOP_W) pos -= LOOP_W;
+      track.style.transition = 'transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+      track.style.transform  = `translateX(-${pos}px)`;
+      setTimeout(() => {
+        track.style.transition = '';
+        paused = false;
+      }, 380);
+    }
+
+    prev.addEventListener('click', () => snap(-1));
+    next.addEventListener('click', () => snap(1));
+  }
+</script>
