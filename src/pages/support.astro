@@ -41,11 +41,13 @@ const topics = [
 >
   <section class="page-hero">
     <div class="section-inner">
-      <span class="eyebrow">Support</span>
-      <h1 class="page-title">We've got<br/>your <span class="accent-cyan">back</span>.</h1>
-      <p class="lede">
-        Most things you'll need are here. If you can't find it, <a href="/contact/">reach out</a> — real humans reply within 48 hours.
-      </p>
+      <div class="reveal">
+        <span class="eyebrow">Support</span>
+        <h1 class="page-title">We've got<br/>your <span class="accent-cyan">back</span>.</h1>
+        <p class="lede">
+          Most things you'll need are here. If you can't find it, <a href="/contact/">reach out</a> — real humans reply within 48 hours.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -72,26 +74,10 @@ const topics = [
 </BaseLayout>
 
 <style>
-  .page-hero {
-    padding-top: 80px;
-    padding-bottom: 0;
-    position: relative;
-    z-index: 2;
-  }
-  .page-title {
-    font-family: var(--font-display);
-    font-size: clamp(56px, 8vw, 120px);
-    line-height: 0.92;
-    text-transform: uppercase;
-    letter-spacing: -1.5px;
-    margin-bottom: 24px;
-  }
   .accent-cyan { color: var(--bsp-cyan); }
-  .lede {
-    font-size: 20px;
-    color: rgba(255, 255, 255, 0.75);
-    max-width: 600px;
-  }
+
+  .page-hero .section-inner { padding-bottom: var(--space-2xl); }
+
   .lede a {
     color: var(--bsp-cyan);
     text-decoration: underline;

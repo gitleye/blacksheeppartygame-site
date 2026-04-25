@@ -1,0 +1,38 @@
+---
+// What's in the box — product photo section
+---
+<section class="in-the-box">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="eyebrow">What's in the box</span>
+      <h2 class="section-title">Everything you <span class="accent-pink">need</span>.</h2>
+    </div>
+    <div class="box-photo reveal reveal-2">
+      <img
+        src="/images/product-photos/game-full-set-spread-topView.jpg"
+        alt="Black Sheep Party Game contents: 150 question cards, 100 point tokens, 10 sets of answer cards, nomination cards and standees"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .in-the-box {
+    background: var(--bsp-black);
+    position: relative;
+    z-index: 2;
+  }
+  .box-photo {
+    margin-top: 52px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  }
+  .box-photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+</style>

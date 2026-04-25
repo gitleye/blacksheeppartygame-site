@@ -1,42 +1,48 @@
 ---
 import { getCollection } from 'astro:content';
 
-// Pull all demo cards from src/content/cards/*.json and sort by `order`
 const cards = (await getCollection('cards')).sort(
   (a, b) => a.data.order - b.data.order
 );
 ---
 <section class="cards-showcase" id="cards">
   <div class="section-inner">
-    <div class="reveal">
-      <span class="eyebrow">Inside the box</span>
-      <h2 class="section-title">150 questions.<br/>Zero <span class="accent-pink">comfort zone</span>.</h2>
+    <div class="showcase-header reveal">
+      <div>
+        <span class="eyebrow">Inside the box</span>
+        <h2 class="section-title">150 questions.<br/>Zero <span class="accent-pink">comfort zone</span>.</h2>
+      </div>
+      <div class="carousel-controls">
+        <button class="carousel-btn" id="cardsPrev" aria-label="Previous card">&#8592;</button>
+        <button class="carousel-btn" id="cardsNext" aria-label="Next card">&#8594;</button>
+      </div>
     </div>
-    <div class="cards-grid">
-      {cards.map((c, i) => (
-        <div class={`flip-card reveal reveal-${(i % 4) + 1}`} tabindex="0">
-          <div class="flip-inner">
-            <div class="flip-face flip-front">
-              <img
-                src={`/images/cards/front/${c.data.number}.webp`}
-                alt={`Card #${c.data.number}: ${c.data.question}`}
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-            <div class="flip-face flip-back">
-              <img
-                src={`/images/cards/back/${c.data.number}.webp`}
-                alt={`Card #${c.data.number} back`}
-                loading="lazy"
-                decoding="async"
-              />
+    <div class="cards-track-wrap" id="cardsWrap">
+      <div class="cards-track" id="cardsTrack">
+        {[...cards, ...cards].map((c, i) => (
+          <div class="flip-card" tabindex="0" aria-hidden={i >= cards.length ? "true" : "false"}>
+            <div class="flip-inner">
+              <div class="flip-face flip-front">
+                <img
+                  src={`/images/cards/front/${c.data.number}.webp`}
+                  alt={`Card #${c.data.number}: ${c.data.question}`}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div class="flip-face flip-back">
+                <img
+                  src={`/images/cards/back/${c.data.number}.webp`}
+                  alt={`Card #${c.data.number} back`}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
-    <div class="flip-hint">hover or tap to flip</div>
   </div>
 </section>
 
@@ -45,13 +51,57 @@ const cards = (await getCollection('cards')).sort(
     background: linear-gradient(180deg, var(--bsp-black) 0%, var(--bsp-deep) 100%);
     overflow: hidden;
   }
-  .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 18px;
-    margin-top: 64px;
+
+  .showcase-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
   }
+
+  .carousel-controls {
+    display: flex;
+    gap: 12px;
+    padding-bottom: 8px;
+  }
+  .carousel-btn {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: transparent;
+    color: var(--bsp-white);
+    font-size: 22px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    line-height: 1;
+  }
+  .carousel-btn:hover {
+    background: var(--bsp-cyan);
+    border-color: var(--bsp-cyan);
+    color: var(--bsp-black);
+    transform: scale(1.08);
+  }
+  .carousel-btn:active { transform: scale(0.95); }
+
+  .cards-track-wrap {
+    margin-top: 48px;
+    overflow: hidden;
+  }
+  .cards-track {
+    display: flex;
+    gap: 24px;
+    width: max-content;
+    will-change: transform;
+  }
+
   .flip-card {
+    flex-shrink: 0;
+    width: 260px;
     aspect-ratio: 2/3;
     perspective: 1000px;
     cursor: pointer;
@@ -84,17 +134,74 @@ const cards = (await getCollection('cards')).sort(
     display: block;
   }
 
-  .flip-hint {
-    margin-top: 40px;
-    font-family: var(--font-marker);
-    font-size: 20px;
-    color: var(--bsp-cyan);
-    text-align: center;
-    opacity: 0.7;
-  }
-  .flip-hint::before { content: '→ '; }
-  .flip-hint::after  { content: ' ←'; }
-
-  @media (max-width: 1100px) { .cards-grid { grid-template-columns: repeat(3, 1fr); } }
-  @media (max-width: 620px)  { .cards-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 620px) { .flip-card { width: 200px; } }
 </style>
+
+<script>
+  document.querySelectorAll('.flip-card').forEach((card) => {
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
+  });
+
+  const track = document.getElementById('cardsTrack') as HTMLElement;
+  const wrap  = document.getElementById('cardsWrap') as HTMLElement;
+  const prev  = document.getElementById('cardsPrev') as HTMLButtonElement;
+  const next  = document.getElementById('cardsNext') as HTMLButtonElement;
+
+  if (track && wrap && prev && next) {
+    const CARD_W   = 260 + 24;
+    const COUNT    = track.children.length / 2;
+    const LOOP_W   = COUNT * CARD_W;
+    const SPEED    = 0.6;
+
+    let pos        = 0;
+    let paused     = false;
+    let rafId: number;
+
+    function tick() {
+      if (!paused) {
+        pos += SPEED;
+        if (pos >= LOOP_W) pos -= LOOP_W;
+        track.style.transform = `translateX(-${pos}px)`;
+      }
+      rafId = requestAnimationFrame(tick);
+    }
+    tick();
+
+    wrap.addEventListener('mouseenter', () => { paused = true; });
+    wrap.addEventListener('mouseleave', () => { paused = false; });
+
+    function snap(direction: 1 | -1) {
+      paused = true;
+      const step = CARD_W * direction;
+      pos += step;
+      if (pos < 0) pos += LOOP_W;
+      if (pos >= LOOP_W) pos -= LOOP_W;
+      track.style.transition = 'transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+      track.style.transform  = `translateX(-${pos}px)`;
+      setTimeout(() => {
+        track.style.transition = '';
+        paused = false;
+      }, 380);
+    }
+
+    prev.addEventListener('click', () => snap(-1));
+    next.addEventListener('click', () => snap(1));
+
+    // Touch swipe — one card per swipe
+    let touchStartX = 0;
+
+    wrap.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      paused = true;
+    }, { passive: true });
+
+    wrap.addEventListener('touchend', (e) => {
+      const delta = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(delta) > 40) {
+        snap(delta > 0 ? 1 : -1);
+      } else {
+        paused = false;
+      }
+    }, { passive: true });
+  }
+</script>

@@ -1,8 +1,6 @@
 ---
 export interface Props {
-  /** Phrases to scroll across the strip */
   items: string[];
-  /** Colour theme */
   variant?: 'cyan' | 'pink';
 }
 const { items, variant = 'cyan' } = Astro.props;
@@ -10,7 +8,9 @@ const track = [...items, ...items];
 ---
 <div class={`strip strip-${variant}`} aria-hidden="true">
   <div class="strip-track">
-    {track.map((t) => <span>{t}</span>)}
+    {track.map((t) => (
+      <span class="strip-item">{t}</span>
+    ))}
   </div>
 </div>
 
@@ -32,25 +32,27 @@ const track = [...items, ...items];
 
   .strip-track {
     display: inline-flex;
-    gap: 60px;
-    animation: marquee 40s linear infinite;
+    align-items: center;
+    gap: 56px;
+    animation: marquee 20s linear infinite;
     white-space: nowrap;
     will-change: transform;
   }
-  .strip-track span {
+
+  .strip-item {
+    letter-spacing: -1px;
     display: inline-flex;
     align-items: center;
-    gap: 60px;
-    letter-spacing: -1px;
+    gap: 56px;
   }
-  .strip-cyan .strip-track span::after {
+  .strip-item::after {
     content: '✦';
-    color: var(--bsp-pink);
-    margin-left: 60px;
   }
-  .strip-pink .strip-track span::after {
-    content: '✦';
-    color: var(--bsp-black);
-    margin-left: 60px;
+  .strip-cyan .strip-item::after { color: var(--bsp-pink); }
+  .strip-pink .strip-item::after { color: var(--bsp-black); }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
   }
 </style>
