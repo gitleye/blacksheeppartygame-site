@@ -8,11 +8,13 @@ import CTABand from '../components/CTABand.astro';
 >
   <section class="page-hero">
     <div class="section-inner">
-      <span class="eyebrow">Get in touch</span>
-      <h1 class="page-title">Say <span class="accent-cyan">hi</span>.</h1>
-      <p class="lede">
-        Whether you're reporting a problem, pitching a card idea, or asking about wholesale — we read every message.
-      </p>
+      <div class="reveal">
+        <span class="eyebrow">Get in touch</span>
+        <h1 class="page-title">Say <span class="accent-cyan">hi</span>.</h1>
+        <p class="lede">
+          Whether you're reporting a problem, pitching a card idea, or asking about wholesale — we read every message.
+        </p>
+      </div>
     </div>
   </section>
 
@@ -154,6 +156,8 @@ import CTABand from '../components/CTABand.astro';
 
 <style>
   .accent-cyan { color: var(--bsp-cyan); }
+
+  .page-hero .section-inner { padding-bottom: var(--space-2xl); }
 
   .contact-section { background: var(--bsp-ink); position: relative; z-index: 2; }
   .contact-grid {
