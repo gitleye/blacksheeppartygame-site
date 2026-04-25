@@ -28,8 +28,6 @@ import CTABand from '../components/CTABand.astro';
         <div class="htp-card htp-card-2"><img src="/images/cards/front/028.webp" alt="" /></div>
         <div class="htp-card htp-card-3"><img src="/images/cards/answer/a-yes.png" alt="" /></div>
         <div class="htp-card htp-card-4"><img src="/images/cards/front/051.webp" alt="" /></div>
-        <div class="htp-card htp-card-5"><img src="/images/cards/answer/b-no.png" alt="" /></div>
-        <div class="htp-card htp-card-6"><img src="/images/cards/nominate/nominate-b.png" alt="" /></div>
       </div>
     </div>
   </section>
@@ -65,7 +63,7 @@ import CTABand from '../components/CTABand.astro';
     </div>
 
     <div class="section-inner rules-grid">
-      <div class="rules-col reveal">
+      <div class="rules-col rules-col--nominate reveal">
         <img src="/images/cards/nominate/nominate-a.png" class="col-card col-card-1" aria-hidden="true" alt="" />
         <img src="/images/cards/nominate/nominate-b.png" class="col-card col-card-2" aria-hidden="true" alt="" />
         <h2 class="rule-heading">Nominate Cards</h2>
@@ -90,7 +88,7 @@ import CTABand from '../components/CTABand.astro';
       <div class="rules-col reveal">
         <h2 class="rule-heading">A Few Notes</h2>
         <ul class="rule-list">
-          <li>The active player picks a number for question cards with a blank value (__).</li>
+          <li>The active player picks a number for question cards with a blank value (<span style="display:inline-block;width:1.2em;border-bottom:2px solid currentColor;vertical-align:baseline;margin-bottom:-4px;"></span>).</li>
           <li>All players vote each round, including the player who picked up the card.</li>
           <li>The active player can nominate themselves.</li>
           <li>Questions can be read before or after nominees are chosen.</li>
@@ -186,25 +184,14 @@ import CTABand from '../components/CTABand.astro';
     cursor: pointer;
   }
   .htp-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .htp-card-1 { transform: translate(-170px, 40px) rotate(-18deg); z-index: 1; }
-  .htp-card-2 { transform: translate(-60px, 10px) rotate(-7deg); z-index: 3; }
-  .htp-card-3 { transform: translate(20px, -30px) rotate(2deg); z-index: 5; }
-  .htp-card-4 { transform: translate(110px, 10px) rotate(9deg); z-index: 3; }
-  .htp-card-5 {
-    transform: translate(185px, -10px) rotate(16deg); z-index: 2;
-    animation: card-bob 5s ease-in-out infinite;
-  }
-  .htp-card-6 { transform: translate(-10px, 60px) rotate(-3deg); z-index: 4; }
-  @keyframes card-bob {
-    0%,100% { transform: translate(185px, -10px) rotate(16deg); }
-    50%      { transform: translate(185px, -24px) rotate(17deg); }
-  }
-  .htp-card-1:hover { transform: translate(-170px, 20px) rotate(-10deg) scale(1.05); z-index: 10; }
-  .htp-card-2:hover { transform: translate(-60px, -8px) rotate(-3deg) scale(1.05); z-index: 10; }
-  .htp-card-3:hover { transform: translate(20px, -48px) rotate(0deg) scale(1.05); z-index: 10; }
-  .htp-card-4:hover { transform: translate(110px, -8px) rotate(4deg) scale(1.05); z-index: 10; }
-  .htp-card-5:hover { transform: translate(185px, -28px) rotate(10deg) scale(1.05); z-index: 10; animation: none; }
-  .htp-card-6:hover { transform: translate(-10px, 44px) rotate(0deg) scale(1.05); z-index: 10; }
+  .htp-card-1 { transform: translate(-120px, 28px) rotate(-20deg); z-index: 2; }
+  .htp-card-2 { transform: translate(-40px, 8px) rotate(-8deg); z-index: 3; }
+  .htp-card-3 { transform: translate(40px, 8px) rotate(8deg); z-index: 3; }
+  .htp-card-4 { transform: translate(120px, 28px) rotate(20deg); z-index: 2; }
+  .htp-card-1:hover { transform: translate(-120px, 0px) rotate(-14deg) scale(1.05); z-index: 10; }
+  .htp-card-2:hover { transform: translate(-40px, -10px) rotate(-4deg) scale(1.05); z-index: 10; }
+  .htp-card-3:hover { transform: translate(40px, -10px) rotate(4deg) scale(1.05); z-index: 10; }
+  .htp-card-4:hover { transform: translate(120px, 12px) rotate(14deg) scale(1.05); z-index: 10; }
 
   /* ── Floating tokens ── */
   .token {
@@ -360,13 +347,21 @@ import CTABand from '../components/CTABand.astro';
 
 
   @media (max-width: 1100px) {
-    .htp-hero-inner { grid-template-columns: 1fr; }
-    .htp-cards { height: 340px; margin-top: 40px; }
+    .htp-hero-inner { grid-template-columns: 1fr; padding: 48px var(--content-padding) 40px; }
+    .htp-cards { height: 340px; margin-top: -90px; }
     .rules-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 620px) {
-    .htp-card { width: 180px; height: 257px; }
-    .htp-card-1 { transform: translate(-80px, 20px) rotate(-12deg); }
-    .htp-card-3 { transform: translate(85px, 30px) rotate(10deg); }
+    .htp-hero-inner { padding: 32px var(--content-padding) 8px; }
+    .htp-card { width: 160px; height: 228px; }
+    .htp-card-1 { transform: translate(-72px, 20px) rotate(-18deg); }
+    .htp-card-2 { transform: translate(-24px, 6px) rotate(-6deg); }
+    .htp-card-3 { transform: translate(24px, 6px) rotate(6deg); }
+    .htp-card-4 { transform: translate(72px, 20px) rotate(18deg); }
+    .rules-col--yesno .col-card-1 { bottom: -35px; }
+    .rules-col--yesno .col-card-2 { bottom: -35px; }
+    .rules-col--nominate .col-card-1 { bottom: -35px; }
+    .rules-col--nominate .col-card-2 { bottom: -35px; }
+    .winning .col-card-1 { bottom: -120px; right: 0px; }
   }
 </style>

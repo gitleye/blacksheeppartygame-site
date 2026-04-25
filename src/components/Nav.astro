@@ -45,18 +45,28 @@ const currentPath = Astro.url.pathname;
 <script>
   const burger = document.getElementById('navBurger');
   const mobile = document.getElementById('navMobile');
+
+  function closeNav() {
+    mobile?.setAttribute('hidden', '');
+    burger?.setAttribute('aria-expanded', 'false');
+    burger?.classList.remove('open');
+  }
+
   if (burger && mobile) {
     burger.addEventListener('click', () => {
       const open = !mobile.hasAttribute('hidden');
       if (open) {
-        mobile.setAttribute('hidden', '');
-        burger.setAttribute('aria-expanded', 'false');
-        burger.classList.remove('open');
+        closeNav();
       } else {
         mobile.removeAttribute('hidden');
         burger.setAttribute('aria-expanded', 'true');
         burger.classList.add('open');
       }
+    });
+
+    // Close nav when any link is tapped
+    mobile.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => closeNav());
     });
   }
 </script>

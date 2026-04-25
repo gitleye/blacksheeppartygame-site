@@ -186,5 +186,22 @@ const cards = (await getCollection('cards')).sort(
 
     prev.addEventListener('click', () => snap(-1));
     next.addEventListener('click', () => snap(1));
+
+    // Touch swipe — one card per swipe
+    let touchStartX = 0;
+
+    wrap.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      paused = true;
+    }, { passive: true });
+
+    wrap.addEventListener('touchend', (e) => {
+      const delta = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(delta) > 40) {
+        snap(delta > 0 ? 1 : -1);
+      } else {
+        paused = false;
+      }
+    }, { passive: true });
   }
 </script>
