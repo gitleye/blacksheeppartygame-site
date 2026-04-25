@@ -105,9 +105,8 @@ import CTABand from '../components/CTABand.astro';
   /* ── Hero ── */
   .htp-hero {
     position: relative;
-    min-height: 72vh;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     overflow: clip;
     isolation: isolate;
     z-index: 2;
@@ -138,11 +137,11 @@ import CTABand from '../components/CTABand.astro';
     width: 100%;
     max-width: var(--max-width);
     margin: 0 auto;
-    padding: 80px var(--content-padding) 60px;
+    padding: var(--space-2xl) var(--content-padding) 60px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 60px;
-    align-items: center;
+    align-items: start;
   }
 
   /* Copy */

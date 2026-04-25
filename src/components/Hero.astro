@@ -266,6 +266,17 @@
     50% { transform: translateY(-14px) rotate(4deg); }
   }
 
+  /* Compact layout for short viewports (13" laptops, ~800px tall) */
+  @media (max-height: 820px) and (min-width: 1100px) {
+    .hero h1 { font-size: clamp(56px, 7vw, 100px); margin-bottom: 20px; }
+    .hero-kicker { margin-bottom: 20px; }
+    .hero-sub { margin-bottom: 28px; }
+    .hero-ctas { margin-bottom: 16px; }
+    .sticker { margin-bottom: 20px; }
+    .hero-meta { padding-top: 20px; }
+    .hero-inner { padding-top: 32px; padding-bottom: 60px; }
+  }
+
   @media (max-width: 1100px) {
     .hero { min-height: auto; }
     .hero-inner {
